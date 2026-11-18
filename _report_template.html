@@ -126,13 +126,8 @@ th.sort.asc::after{content:' ↑'}th.sort.desc::after{content:' ↓'}
 <div class="card"><p style="font-size:13.5px;color:#374151">本次覆盖 <b>__N__ 个玩法</b>，上架天数跨度 1~1538 天，其中 <b>__OVER180__ 个（__PCT180__%）超 180 天</b>，时间衰减 fd 是影响多数老玩法的关键因子；近1年累计超 1500 万的玩法仅 <b>__OVERCUM__ 个</b>，规模衰减 fc 只对极少数"超级大体量"玩法生效。</p></div>
 </section>
 
-<section><div class="sec-head"><span class="sec-num">04</span><span class="sec-title">榜单效果</span><span class="sec-sub">加分项 vs 衰减因子的博弈</span></div>
-<div class="grid2">
-<div class="card"><h4>Top 20 综合分排行</h4><p class="note" style="margin-bottom:4px">每条展示三个加分项的贡献构成（新进 / 留存 / 流水，堆叠总和 = add）</p><div id="cTop" class="chart tall"></div></div>
-<div class="card"><h4>加分项 → 最终得分（衰减影响）</h4>
-<p class="note" style="margin-bottom:4px">若无衰减应落于对角线（score=add）；点越低于对角线，被 fd/fc 衰减得越厉害。</p>
-<div id="cScatter" class="chart tall"></div></div>
-</div>
+<section><div class="sec-head"><span class="sec-num">04</span><span class="sec-title">榜单效果</span><span class="sec-sub">Top 20 综合分排行与加分项贡献构成</span></div>
+<div class="card"><h4>Top 20 综合分排行</h4><p class="note" style="margin-bottom:4px">每条展示三个加分项的贡献构成（新进 / 留存 / 流水），段内数字为该类贡献占 add 的百分比。</p><div id="cTop" class="chart tall"></div></div>
 <div class="card" style="margin-top:20px"><h4>完整榜单（全部 __N__ 个玩法）</h4>
 <div class="tbl-tools"><input id="tblSearch" type="text" placeholder="搜索玩法名…" autocomplete="off"><span class="tbl-count" id="tblCount"></span><span class="note" style="margin-top:0">点击表头可按该列升序 / 降序排序</span></div>
 <div class="tbl-scroll"><table id="tbl">
@@ -341,19 +336,10 @@ legend:{data:['新进贡献','留存贡献','流水贡献'],top:0,textStyle:{fon
 tooltip:{trigger:'axis',axisPointer:{type:'shadow'},formatter:function(p){var d=top[p[0].dataIndex];return '<b>'+d.name+'</b>（第'+d.rank+'名）<br>新进 '+d.an.toFixed(3)+' · 留存 '+d.ar.toFixed(3)+' · 流水 '+d.av.toFixed(3)+'<br>add '+d.add.toFixed(3)+' · fd '+d.fd.toFixed(3)+' · fc '+d.fc.toFixed(3)+' · 得分 '+d.score.toFixed(4)}},
 xAxis:{type:'value',max:1},yAxis:{type:'category',data:top.map(function(d){return d.name}),axisLabel:{fontSize:12}},
 series:[
-{name:'新进贡献',type:'bar',stack:'a',data:top.map(function(d){return d.an}),barMaxWidth:16,itemStyle:{color:BLUE}},
-{name:'留存贡献',type:'bar',stack:'a',data:top.map(function(d){return d.ar}),itemStyle:{color:'#16a34a'}},
-{name:'流水贡献',type:'bar',stack:'a',data:top.map(function(d){return d.av}),itemStyle:{color:'#d97706'},
-label:{show:true,position:'right',formatter:function(p){return top[p.dataIndex].add.toFixed(3)},fontSize:10}}
+{name:'新进贡献',type:'bar',stack:'a',data:top.map(function(d){return d.an}),barMaxWidth:16,itemStyle:{color:BLUE},label:{show:true,position:'inside',color:'#fff',fontSize:9,formatter:function(p){var d=top[p.dataIndex];return Math.round(p.value/d.add*100)+'%'}}},
+{name:'留存贡献',type:'bar',stack:'a',data:top.map(function(d){return d.ar}),itemStyle:{color:'#16a34a'},label:{show:true,position:'inside',color:'#fff',fontSize:9,formatter:function(p){var d=top[p.dataIndex];return Math.round(p.value/d.add*100)+'%'}}},
+{name:'流水贡献',type:'bar',stack:'a',data:top.map(function(d){return d.av}),itemStyle:{color:'#d97706'},label:{show:true,position:'inside',color:'#fff',fontSize:9,formatter:function(p){var d=top[p.dataIndex];return Math.round(p.value/d.add*100)+'%'}}}
 ]})})();
-
-(function(){var pts=DATA.map(function(d){return{name:d.name,rank:d.rank,days:d.days,fd:d.fd,fc:d.fc,value:[d.add,d.score]}});
-init('cScatter').setOption({grid:{left:50,right:40,top:28,bottom:44},
-tooltip:{formatter:function(p){var d=pts[p.dataIndex];return d.name+'（第'+d.rank+'名）<br>add '+d.value[0].toFixed(3)+' → score '+d.value[1].toFixed(3)+'<br>fd '+d.fd.toFixed(3)+' · fc '+d.fc.toFixed(3)+' · days '+d.days}},
-xAxis:{type:'value',name:'加分项 add',min:0,max:1},yAxis:{type:'value',name:'最终得分',min:0,max:1},
-series:[{type:'scatter',data:pts,symbolSize:6,
-itemStyle:{color:function(p){return DATA[p.dataIndex].days>180?'#e5e7eb':'#2e75b6'}},
-markLine:{silent:true,symbol:'none',label:{formatter:'score=add',fontSize:10},data:[{xAxis:0,yAxis:0,x2:1,y2:1,lineStyle:{color:RED,type:'dashed',width:1.5}}]}}]})})();
 
 var tblState={k:'rank',dir:1,q:''};
 function medal(r){return r==1?'r1':r==2?'r2':r==3?'r3':'rn'}
