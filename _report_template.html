@@ -326,10 +326,10 @@ function w(v){return v==null?'—':(v/10000).toFixed(0)+'万'}
 var cs=[];function init(id){var c=echarts.init(document.getElementById(id));cs.push(c);return c}
 window.addEventListener('resize',function(){cs.forEach(function(c){c.resize()})});
 
-(function(){var xs=[],ys=[];for(var d=0;d<=1600;d+=10){xs.push(d);ys.push(fdOf(d))}
+(function(){var xs=[],ys=[];for(var d=0;d<=1095;d+=10){xs.push(d);ys.push(fdOf(d))}
 init('cFd').setOption({grid:{left:50,right:24,top:28,bottom:40},
 tooltip:{trigger:'axis',formatter:function(p){return p[0].axisValue+' 天 → fd='+p[0].value.toFixed(3)}},
-xAxis:{type:'value',name:'上架天数',min:0,max:1600},yAxis:{type:'value',name:'fd',min:0,max:1.05},
+xAxis:{type:'value',name:'上架天数',min:0,max:1095},yAxis:{type:'value',name:'fd',min:0,max:1.05},
 series:[{type:'line',data:xs.map(function(x,i){return[x,ys[i]]}),smooth:true,symbol:'none',lineStyle:{color:RED,width:2.5},
 areaStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(255,77,79,.18)'},{offset:1,color:'rgba(255,77,79,0)'}])},
 markLine:{symbol:'none',label:{formatter:'{b}'},data:[{xAxis:180,name:'180天 · fd=0.91',lineStyle:{color:GRAY,type:'dashed'},label:{position:'end',offset:[0,14]}},{yAxis:0.9,name:'fd=0.9',lineStyle:{color:'#d97706',type:'dashed'},label:{position:'end',offset:[-24,0]}},{yAxis:0.5,name:'500天 · fd=0.5',lineStyle:{color:'#16a34a',type:'dashed'},label:{position:'end',offset:[-34,0]}}]}}]})})();
