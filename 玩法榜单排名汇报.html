@@ -92,9 +92,9 @@ th.sort.asc::after{content:' ↑'}th.sort.desc::after{content:' ↓'}
 <p style="font-size:13px;color:#374151">三项正向指标先做 <b>log(1+x)</b> 对数压缩，再在当日全部玩法内做 <b>min-max 归一化</b>，最后加权。对数压缩避免大体量数值主导、缓解长尾。</p>
 <div style="margin:12px 0;text-align:center;font-size:13.5px;font-weight:700;color:var(--red)">add = 0.35·norm(ln(1+N_new)) + 0.25·norm(ln(1+N_ret)) + 0.40·norm(ln(1+Rev))</div>
 <table><tr><th>指标</th><th class="r">权重</th><th>含义</th></tr>
-<tr><td>N_new：近7日新进玩家数</td><td class="r"><b>0.35</b></td><td>拉新能力</td></tr>
-<tr><td>N_ret：近7日留存玩家数</td><td class="r"><b>0.25</b></td><td>活跃基本盘</td></tr>
-<tr><td>Rev：近7日绿洲币消耗</td><td class="r"><b>0.40</b></td><td>商业价值</td></tr></table></div>
+<tr><td style="color:var(--red)">N_new：近7日新进玩家数</td><td class="r"><b>0.35</b></td><td>拉新能力</td></tr>
+<tr><td style="color:var(--red)">N_ret：近7日留存玩家数</td><td class="r"><b>0.25</b></td><td>活跃基本盘</td></tr>
+<tr><td style="color:var(--red)">Rev：近7日绿洲币消耗</td><td class="r"><b>0.40</b></td><td>商业价值</td></tr></table></div>
 <div class="card"><h3 style="color:#16a34a">② 时间衰减 fd —— 新玩法保护</h3>
 <p style="font-size:13px;color:#374151">对"上架天数"惩罚：<b>180 天内</b>系数 a′ 从 0.0003 平滑升至 0.00055（温和）；<b>180 天后</b>加速逼近 0.00437，使 500 天处 fd≈0.5。新玩法 fd≈1。</p>
 <div style="margin:12px 0;text-align:center;font-size:13.5px;font-weight:700;color:#16a34a">fd = 1 / ( 1 + a′(days)·days )</div>
