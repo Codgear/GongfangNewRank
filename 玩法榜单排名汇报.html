@@ -44,20 +44,20 @@ td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}td.c,th.c{text-alig
 h3{color:var(--navy);font-size:16px;margin-bottom:8px}h4{color:var(--navy);margin-bottom:4px}
 .case{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}@media(max-width:960px){.case{grid-template-columns:1fr}}
 .case-card{border-radius:14px;padding:22px;border:1px solid var(--line);background:#fff}
-.case-card.old{border-left:5px solid var(--red)}.case-card.new{border-left:5px solid #16a34a}
+.case-card.old{border-left:5px solid #16a34a}.case-card.new{border-left:5px solid var(--red)}
 .case-card h4{font-size:16px}.rank-pill{font-size:12px;color:#fff;background:var(--red);border-radius:12px;padding:2px 10px;display:inline-block;margin:8px 0}
-.case-card.new .rank-pill{background:#16a34a}
+.case-card.old .rank-pill{background:#16a34a}
 .rank-pill.add-pill{background:var(--blue);margin-left:6px}
 .case-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
 .cm{background:#f8fafc;border-radius:8px;padding:8px 12px}.cm .k{font-size:12px;color:var(--muted)}.cm .v{font-size:16px;font-weight:700}
 .case-card .desc{font-size:13px;margin-top:12px;background:#fef3f2;border-radius:8px;padding:10px 12px}
-.case-card.new .desc{background:#f0fdf4}
+.case-card.old .desc{background:#f0fdf4}
 .case-group{margin-bottom:28px}
 .case-group:last-child{margin-bottom:0}
 .case-group-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:14px;display:flex;align-items:center;gap:8px}
 .case-group-title .dot{width:10px;height:10px;border-radius:50%;display:inline-block;flex:none}
-.case-group-title .dot.old{background:var(--red)}
-.case-group-title .dot.new{background:#16a34a}
+.case-group-title .dot.old{background:#16a34a}
+.case-group-title .dot.new{background:var(--red)}
 .concl li{list-style:none;padding-left:26px;margin-bottom:12px;font-size:14px;position:relative}
 .concl li::before{content:"✓";position:absolute;left:0;color:#16a34a;font-weight:700}
 .vote-btn{display:inline-block;background:linear-gradient(135deg,#1f3864,#2e75b6);color:#fff;font-size:15px;font-weight:700;padding:13px 30px;border-radius:26px;text-decoration:none;box-shadow:0 4px 14px rgba(46,117,182,.35);transition:.2s}
@@ -147,9 +147,9 @@ th.sort.asc::after{content:' ↑'}th.sort.desc::after{content:' ↓'}
 <div class="cm"><div class="k">加分项 add</div><div class="v">0.987</div></div>
 <div class="cm"><div class="k">上架天数</div><div class="v">441 天</div></div>
 <div class="cm"><div class="k">近1年累计</div><div class="v">5893 万</div></div>
-<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:var(--red)">0.564</div></div>
-<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:var(--red)">0.312</div></div>
-<div class="cm"><div class="k">最终得分</div><div class="v" style="color:var(--red)">0.174</div></div>
+<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:#16a34a">0.564</div></div>
+<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:#16a34a">0.312</div></div>
+<div class="cm"><div class="k">最终得分</div><div class="v" style="color:#16a34a">0.174</div></div>
 </div>
 <div class="desc">add=0.987 全场第一，但 Days=441 + 近1年累计 5893 万，触发时间与规模双重强衰减（fd×fc≈0.176），得分被压到 0.174、第 176 名。</div></div>
 
@@ -158,9 +158,9 @@ th.sort.asc::after{content:' ↑'}th.sort.desc::after{content:' ↓'}
 <div class="cm"><div class="k">加分项 add</div><div class="v">0.768</div></div>
 <div class="cm"><div class="k">上架天数</div><div class="v">1538 天</div></div>
 <div class="cm"><div class="k">近1年累计</div><div class="v">1135 万</div></div>
-<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:var(--red)">0.136</div></div>
-<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:var(--red)">0.963</div></div>
-<div class="cm"><div class="k">最终得分</div><div class="v" style="color:var(--red)">0.101</div></div>
+<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:#16a34a">0.136</div></div>
+<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:#16a34a">0.963</div></div>
+<div class="cm"><div class="k">最终得分</div><div class="v" style="color:#16a34a">0.101</div></div>
 </div>
 <div class="desc">上架 1538 天使 fd 骤降至 0.136，add=0.768 被时间衰减大幅稀释，得分仅 0.101、第 255 名。</div></div>
 
@@ -169,9 +169,9 @@ th.sort.asc::after{content:' ↑'}th.sort.desc::after{content:' ↓'}
 <div class="cm"><div class="k">加分项 add</div><div class="v">0.750</div></div>
 <div class="cm"><div class="k">上架天数</div><div class="v">783 天</div></div>
 <div class="cm"><div class="k">近1年累计</div><div class="v">4563 万</div></div>
-<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:var(--red)">0.300</div></div>
-<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:var(--red)">0.424</div></div>
-<div class="cm"><div class="k">最终得分</div><div class="v" style="color:var(--red)">0.095</div></div>
+<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:#16a34a">0.300</div></div>
+<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:#16a34a">0.424</div></div>
+<div class="cm"><div class="k">最终得分</div><div class="v" style="color:#16a34a">0.095</div></div>
 </div>
 <div class="desc">add=0.750 不低，但 Days=783 使 fd=0.300，Cum≈4563 万远超阈值使 fc=0.424，双重强衰减后得分 0.095、第 258 名。</div></div>
 
@@ -180,9 +180,9 @@ th.sort.asc::after{content:' ↑'}th.sort.desc::after{content:' ↓'}
 <div class="cm"><div class="k">加分项 add</div><div class="v">0.733</div></div>
 <div class="cm"><div class="k">上架天数</div><div class="v">1455 天</div></div>
 <div class="cm"><div class="k">近1年累计</div><div class="v">1591 万</div></div>
-<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:var(--red)">0.145</div></div>
-<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:var(--red)">0.886</div></div>
-<div class="cm"><div class="k">最终得分</div><div class="v" style="color:var(--red)">0.094</div></div>
+<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:#16a34a">0.145</div></div>
+<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:#16a34a">0.886</div></div>
+<div class="cm"><div class="k">最终得分</div><div class="v" style="color:#16a34a">0.094</div></div>
 </div>
 <div class="desc">Days=1455 使 fd=0.145，Cum≈1591 万又触发 fc=0.886，add=0.733 被双重衰减压到 0.094、第 261 名。</div></div>
 
@@ -191,9 +191,9 @@ th.sort.asc::after{content:' ↑'}th.sort.desc::after{content:' ↓'}
 <div class="cm"><div class="k">加分项 add</div><div class="v">0.806</div></div>
 <div class="cm"><div class="k">上架天数</div><div class="v">288 天</div></div>
 <div class="cm"><div class="k">近1年累计</div><div class="v">831 万</div></div>
-<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:var(--red)">0.766</div></div>
-<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:var(--red)">0.965</div></div>
-<div class="cm"><div class="k">最终得分</div><div class="v" style="color:var(--red)">0.596</div></div>
+<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:#16a34a">0.766</div></div>
+<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:#16a34a">0.965</div></div>
+<div class="cm"><div class="k">最终得分</div><div class="v" style="color:#16a34a">0.596</div></div>
 </div>
 <div class="desc">add=0.806 较高，但 Days=288 使 fd 降至 0.766，被时间衰减压制，得分 0.596、第 28 名。</div></div>
 
@@ -202,9 +202,9 @@ th.sort.asc::after{content:' ↑'}th.sort.desc::after{content:' ↓'}
 <div class="cm"><div class="k">加分项 add</div><div class="v">0.812</div></div>
 <div class="cm"><div class="k">上架天数</div><div class="v">553 天</div></div>
 <div class="cm"><div class="k">近1年累计</div><div class="v">555 万</div></div>
-<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:var(--red)">0.450</div></div>
-<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:var(--red)">0.973</div></div>
-<div class="cm"><div class="k">最终得分</div><div class="v" style="color:var(--red)">0.355</div></div>
+<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:#16a34a">0.450</div></div>
+<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:#16a34a">0.973</div></div>
+<div class="cm"><div class="k">最终得分</div><div class="v" style="color:#16a34a">0.355</div></div>
 </div>
 <div class="desc">add=0.812 很高，但 Days=553 使 fd 骤降至 0.450，被时间衰减大幅稀释，得分 0.355、第 88 名。</div></div>
 
@@ -213,9 +213,9 @@ th.sort.asc::after{content:' ↑'}th.sort.desc::after{content:' ↓'}
 <div class="cm"><div class="k">加分项 add</div><div class="v">0.766</div></div>
 <div class="cm"><div class="k">上架天数</div><div class="v">518 天</div></div>
 <div class="cm"><div class="k">近1年累计</div><div class="v">1595 万</div></div>
-<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:var(--red)">0.482</div></div>
-<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:var(--red)">0.885</div></div>
-<div class="cm"><div class="k">最终得分</div><div class="v" style="color:var(--red)">0.327</div></div>
+<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:#16a34a">0.482</div></div>
+<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:#16a34a">0.885</div></div>
+<div class="cm"><div class="k">最终得分</div><div class="v" style="color:#16a34a">0.327</div></div>
 </div>
 <div class="desc">add=0.766，Days=518 使 fd=0.482，Cum≈1595 万又触发 fc=0.885，双重衰减后得分 0.327、第 95 名。</div></div>
 
@@ -231,9 +231,9 @@ th.sort.asc::after{content:' ↑'}th.sort.desc::after{content:' ↓'}
 <div class="cm"><div class="k">加分项 add</div><div class="v">0.901</div></div>
 <div class="cm"><div class="k">上架天数</div><div class="v">29 天</div></div>
 <div class="cm"><div class="k">近1年累计</div><div class="v">120 万</div></div>
-<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:#16a34a">0.991</div></div>
-<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:#16a34a">0.993</div></div>
-<div class="cm"><div class="k">最终得分</div><div class="v" style="color:#16a34a">0.887</div></div>
+<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:var(--red)">0.991</div></div>
+<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:var(--red)">0.993</div></div>
+<div class="cm"><div class="k">最终得分</div><div class="v" style="color:var(--red)">0.887</div></div>
 </div>
 <div class="desc">上架仅 29 天，fd/fc 均≈1，add=0.901 几乎原样转化为得分 0.887，靠近期新进与流水登顶。</div></div>
 
@@ -242,9 +242,9 @@ th.sort.asc::after{content:' ↑'}th.sort.desc::after{content:' ↓'}
 <div class="cm"><div class="k">加分项 add</div><div class="v">0.844</div></div>
 <div class="cm"><div class="k">上架天数</div><div class="v">64 天</div></div>
 <div class="cm"><div class="k">近1年累计</div><div class="v">223 万</div></div>
-<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:#16a34a">0.980</div></div>
-<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:#16a34a">0.987</div></div>
-<div class="cm"><div class="k">最终得分</div><div class="v" style="color:#16a34a">0.817</div></div>
+<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:var(--red)">0.980</div></div>
+<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:var(--red)">0.987</div></div>
+<div class="cm"><div class="k">最终得分</div><div class="v" style="color:var(--red)">0.817</div></div>
 </div>
 <div class="desc">上架 64 天，fd=0.980 / fc=0.987 几乎无衰减，add=0.844 转化为得分 0.817、第 2 名。</div></div>
 
@@ -253,9 +253,9 @@ th.sort.asc::after{content:' ↑'}th.sort.desc::after{content:' ↓'}
 <div class="cm"><div class="k">加分项 add</div><div class="v">0.831</div></div>
 <div class="cm"><div class="k">上架天数</div><div class="v">70 天</div></div>
 <div class="cm"><div class="k">近1年累计</div><div class="v">106 万</div></div>
-<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:#16a34a">0.978</div></div>
-<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:#16a34a">0.994</div></div>
-<div class="cm"><div class="k">最终得分</div><div class="v" style="color:#16a34a">0.807</div></div>
+<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:var(--red)">0.978</div></div>
+<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:var(--red)">0.994</div></div>
+<div class="cm"><div class="k">最终得分</div><div class="v" style="color:var(--red)">0.807</div></div>
 </div>
 <div class="desc">上架 70 天，fd/fc≈1，add=0.831 转化为得分 0.807、第 3 名，衰减几乎为零。</div></div>
 
@@ -264,9 +264,9 @@ th.sort.asc::after{content:' ↑'}th.sort.desc::after{content:' ↓'}
 <div class="cm"><div class="k">加分项 add</div><div class="v">0.801</div></div>
 <div class="cm"><div class="k">上架天数</div><div class="v">15 天</div></div>
 <div class="cm"><div class="k">近1年累计</div><div class="v">19 万</div></div>
-<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:#16a34a">0.995</div></div>
-<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:#16a34a">0.999</div></div>
-<div class="cm"><div class="k">最终得分</div><div class="v" style="color:#16a34a">0.796</div></div>
+<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:var(--red)">0.995</div></div>
+<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:var(--red)">0.999</div></div>
+<div class="cm"><div class="k">最终得分</div><div class="v" style="color:var(--red)">0.796</div></div>
 </div>
 <div class="desc">上架仅 15 天，fd=0.995 / fc=0.999 基本无衰减，add=0.801 转化为得分 0.796、第 4 名。</div></div>
 
@@ -275,9 +275,9 @@ th.sort.asc::after{content:' ↑'}th.sort.desc::after{content:' ↓'}
 <div class="cm"><div class="k">加分项 add</div><div class="v">0.839</div></div>
 <div class="cm"><div class="k">上架天数</div><div class="v">117 天</div></div>
 <div class="cm"><div class="k">近1年累计</div><div class="v">535 万</div></div>
-<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:#16a34a">0.957</div></div>
-<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:#16a34a">0.974</div></div>
-<div class="cm"><div class="k">最终得分</div><div class="v" style="color:#16a34a">0.782</div></div>
+<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:var(--red)">0.957</div></div>
+<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:var(--red)">0.974</div></div>
+<div class="cm"><div class="k">最终得分</div><div class="v" style="color:var(--red)">0.782</div></div>
 </div>
 <div class="desc">上架 117 天，fd=0.957 / fc=0.974 衰减轻微，add=0.839 转化为得分 0.782、第 5 名。</div></div>
 
@@ -286,9 +286,9 @@ th.sort.asc::after{content:' ↑'}th.sort.desc::after{content:' ↓'}
 <div class="cm"><div class="k">加分项 add</div><div class="v">0.773</div></div>
 <div class="cm"><div class="k">上架天数</div><div class="v">13 天</div></div>
 <div class="cm"><div class="k">近1年累计</div><div class="v">30 万</div></div>
-<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:#16a34a">0.996</div></div>
-<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:#16a34a">0.998</div></div>
-<div class="cm"><div class="k">最终得分</div><div class="v" style="color:#16a34a">0.768</div></div>
+<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:var(--red)">0.996</div></div>
+<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:var(--red)">0.998</div></div>
+<div class="cm"><div class="k">最终得分</div><div class="v" style="color:var(--red)">0.768</div></div>
 </div>
 <div class="desc">上架仅 13 天，fd=0.996 / fc=0.998 几乎无衰减，add=0.773 转化为得分 0.768、第 6 名。</div></div>
 
