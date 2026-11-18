@@ -88,8 +88,8 @@ th.sort.asc::after{content:' ↑'}th.sort.desc::after{content:' ↓'}
 <div class="f-note">三项 0~1 系数相乘；add 衡量"近7日热度与流水"，fd/fc 负责"给老玩法降温"。</div>
 <div class="f-parts">
 <div class="f-chip"><b>加分项 add</b><br>0.35·新进 + 0.25·留存 + 0.40·流水</div>
-<div class="f-chip"><b>时间衰减 fd</b><br>1/(1+a′(天数)·天数)<br>分段 Sigmoid · 180 天分界</div>
-<div class="f-chip"><b>规模衰减 fc</b><br>1/(1+b′(累计)·累计)<br>分段 Sigmoid · 1500 万分界</div>
+<div class="f-chip"><b style="color:#16a34a">时间衰减 fd</b><br>1/(1+a′(天数)·天数)<br>分段 Sigmoid · 180 天分界</div>
+<div class="f-chip"><b style="color:#16a34a">规模衰减 fc</b><br>1/(1+b′(累计)·累计)<br>分段 Sigmoid · 1500 万分界</div>
 </div></div>
 <div class="grid3">
 <div class="card"><h3>① 加分项 add —— 衡量"当前价值"</h3>
