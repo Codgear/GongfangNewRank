@@ -51,6 +51,12 @@ h3{color:var(--navy);font-size:16px;margin-bottom:8px}h4{color:var(--navy);margi
 .cm{background:#f8fafc;border-radius:8px;padding:8px 12px}.cm .k{font-size:12px;color:var(--muted)}.cm .v{font-size:16px;font-weight:700}
 .case-card .desc{font-size:13px;margin-top:12px;background:#fef3f2;border-radius:8px;padding:10px 12px}
 .case-card.new .desc{background:#f0fdf4}
+.case-group{margin-bottom:28px}
+.case-group:last-child{margin-bottom:0}
+.case-group-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.case-group-title .dot{width:10px;height:10px;border-radius:50%;display:inline-block;flex:none}
+.case-group-title .dot.old{background:var(--red)}
+.case-group-title .dot.new{background:#16a34a}
 .concl li{list-style:none;padding-left:26px;margin-bottom:12px;font-size:14px;position:relative}
 .concl li::before{content:"✓";position:absolute;left:0;color:#16a34a;font-weight:700}
 .note{font-size:12.5px;color:var(--muted);margin-top:8px}
@@ -132,8 +138,12 @@ th.sort.asc::after{content:' ↑'}th.sort.desc::after{content:' ↓'}
 <tbody id="tblBody"></tbody></table></div></div>
 </section>
 
-<section><div class="sec-head"><span class="sec-num">05</span><span class="sec-title">典型案例</span><span class="sec-sub">老玩法被降温 / 新玩法登顶</span></div>
+<section><div class="sec-head"><span class="sec-num">05</span><span class="sec-title">典型案例</span><span class="sec-sub">被压制的玩法 vs 收益新玩法</span></div>
+
+<div class="case-group">
+<div class="case-group-title"><span class="dot old"></span>被压制的玩法 · 5 个典型代表</div>
 <div class="case">
+
 <div class="case-card old"><h4>吃丹修仙 —— 加分项全场最高，却被压到 176 名</h4><span class="rank-pill">最终排名 176</span>
 <div class="case-metrics">
 <div class="cm"><div class="k">加分项 add</div><div class="v">0.987</div></div>
@@ -143,8 +153,20 @@ th.sort.asc::after{content:' ↑'}th.sort.desc::after{content:' ↓'}
 <div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:var(--red)">0.312</div></div>
 <div class="cm"><div class="k">最终得分</div><div class="v" style="color:var(--red)">0.174</div></div>
 </div>
-<div class="desc">add=0.987 全场第一，但 Days=441、近1年累计 5893 万，同时触发时间与规模双重强衰减（fd×fc≈0.176），综合分被压到 0.174，正是"给超长运营 / 超大体量老玩法降温"的体现。</div></div>
-<div class="case-card old"><h4>单挑王 —— 超长上架时长主导衰减，排到 258 名</h4><span class="rank-pill">最终排名 258</span>
+<div class="desc">add=0.987 全场第一，但 Days=441 + 近1年累计 5893 万，触发时间与规模双重强衰减（fd×fc≈0.176），得分被压到 0.174、第 176 名。</div></div>
+
+<div class="case-card old"><h4>和平运动会 —— 上架 1538 天全场最长，压到 255 名</h4><span class="rank-pill">最终排名 255</span>
+<div class="case-metrics">
+<div class="cm"><div class="k">加分项 add</div><div class="v">0.768</div></div>
+<div class="cm"><div class="k">上架天数</div><div class="v">1538 天</div></div>
+<div class="cm"><div class="k">近1年累计</div><div class="v">1135 万</div></div>
+<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:var(--red)">0.136</div></div>
+<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:var(--red)">0.963</div></div>
+<div class="cm"><div class="k">最终得分</div><div class="v" style="color:var(--red)">0.101</div></div>
+</div>
+<div class="desc">上架 1538 天使 fd 骤降至 0.136，add=0.768 被时间衰减大幅稀释，得分仅 0.101、第 255 名。</div></div>
+
+<div class="case-card old"><h4>单挑王 —— 超长运营 + 超大体量双重降温，压到 258 名</h4><span class="rank-pill">最终排名 258</span>
 <div class="case-metrics">
 <div class="cm"><div class="k">加分项 add</div><div class="v">0.750</div></div>
 <div class="cm"><div class="k">上架天数</div><div class="v">783 天</div></div>
@@ -153,8 +175,38 @@ th.sort.asc::after{content:' ↑'}th.sort.desc::after{content:' ↓'}
 <div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:var(--red)">0.424</div></div>
 <div class="cm"><div class="k">最终得分</div><div class="v" style="color:var(--red)">0.095</div></div>
 </div>
-<div class="desc">add=0.750 不低，但 Days=783 天（极老玩法）使 fd 仅 0.300；Cum≈4563 万远超 1500 万阈值，fc 仅 0.424。双重强衰减下 fd×fc≈0.127，综合分被压到 0.095，排到第 258 名。</div></div>
-<div class="case-card new"><h4>我的宠物都是妖 —— 新玩法登顶</h4><span class="rank-pill">最终排名 1</span>
+<div class="desc">add=0.750 不低，但 Days=783 使 fd=0.300，Cum≈4563 万远超阈值使 fc=0.424，双重强衰减后得分 0.095、第 258 名。</div></div>
+
+<div class="case-card old"><h4>色块派对 —— 上架 1455 天叠加规模衰减，压到 261 名</h4><span class="rank-pill">最终排名 261</span>
+<div class="case-metrics">
+<div class="cm"><div class="k">加分项 add</div><div class="v">0.733</div></div>
+<div class="cm"><div class="k">上架天数</div><div class="v">1455 天</div></div>
+<div class="cm"><div class="k">近1年累计</div><div class="v">1591 万</div></div>
+<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:var(--red)">0.145</div></div>
+<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:var(--red)">0.886</div></div>
+<div class="cm"><div class="k">最终得分</div><div class="v" style="color:var(--red)">0.094</div></div>
+</div>
+<div class="desc">Days=1455 使 fd=0.145，Cum≈1591 万又触发 fc=0.886，add=0.733 被双重衰减压到 0.094、第 261 名。</div></div>
+
+<div class="case-card old"><h4>超级捉迷藏 —— 上架 1217 天，fd 仅 0.176，压到 230 名</h4><span class="rank-pill">最终排名 230</span>
+<div class="case-metrics">
+<div class="cm"><div class="k">加分项 add</div><div class="v">0.705</div></div>
+<div class="cm"><div class="k">上架天数</div><div class="v">1217 天</div></div>
+<div class="cm"><div class="k">近1年累计</div><div class="v">462 万</div></div>
+<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:var(--red)">0.176</div></div>
+<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:var(--red)">0.976</div></div>
+<div class="cm"><div class="k">最终得分</div><div class="v" style="color:var(--red)">0.121</div></div>
+</div>
+<div class="desc">Days=1217 使 fd 降至 0.176，add=0.705 被时间衰减大幅压低，得分 0.121、第 230 名。</div></div>
+
+</div>
+</div>
+
+<div class="case-group">
+<div class="case-group-title"><span class="dot new"></span>收益新玩法 · 5 个典型代表</div>
+<div class="case">
+
+<div class="case-card new"><h4>我的宠物都是妖 —— 上架 29 天登顶</h4><span class="rank-pill">最终排名 1</span>
 <div class="case-metrics">
 <div class="cm"><div class="k">加分项 add</div><div class="v">0.901</div></div>
 <div class="cm"><div class="k">上架天数</div><div class="v">29 天</div></div>
@@ -163,8 +215,55 @@ th.sort.asc::after{content:' ↑'}th.sort.desc::after{content:' ↓'}
 <div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:#16a34a">0.993</div></div>
 <div class="cm"><div class="k">最终得分</div><div class="v" style="color:#16a34a">0.887</div></div>
 </div>
-<div class="desc">上架仅 29 天，fd/fc 均≈1，靠新进（32.9 万）+ 流水（488 万）的强劲表现，加分项 0.901 几乎原样转化为得分 0.887 登顶，体现"新玩法保护"。</div></div>
-</div></section>
+<div class="desc">上架仅 29 天，fd/fc 均≈1，add=0.901 几乎原样转化为得分 0.887，靠近期新进与流水登顶。</div></div>
+
+<div class="case-card new"><h4>一刀9999修仙 —— 上架 64 天冲上第 2</h4><span class="rank-pill">最终排名 2</span>
+<div class="case-metrics">
+<div class="cm"><div class="k">加分项 add</div><div class="v">0.844</div></div>
+<div class="cm"><div class="k">上架天数</div><div class="v">64 天</div></div>
+<div class="cm"><div class="k">近1年累计</div><div class="v">223 万</div></div>
+<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:#16a34a">0.980</div></div>
+<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:#16a34a">0.987</div></div>
+<div class="cm"><div class="k">最终得分</div><div class="v" style="color:#16a34a">0.817</div></div>
+</div>
+<div class="desc">上架 64 天，fd=0.980 / fc=0.987 几乎无衰减，add=0.844 转化为得分 0.817、第 2 名。</div></div>
+
+<div class="case-card new"><h4>一发入魂 —— 上架 70 天冲上第 3</h4><span class="rank-pill">最终排名 3</span>
+<div class="case-metrics">
+<div class="cm"><div class="k">加分项 add</div><div class="v">0.831</div></div>
+<div class="cm"><div class="k">上架天数</div><div class="v">70 天</div></div>
+<div class="cm"><div class="k">近1年累计</div><div class="v">106 万</div></div>
+<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:#16a34a">0.978</div></div>
+<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:#16a34a">0.994</div></div>
+<div class="cm"><div class="k">最终得分</div><div class="v" style="color:#16a34a">0.807</div></div>
+</div>
+<div class="desc">上架 70 天，fd/fc≈1，add=0.831 转化为得分 0.807、第 3 名，衰减几乎为零。</div></div>
+
+<div class="case-card new"><h4>真3D御剑修仙 —— 上架 15 天冲上第 4</h4><span class="rank-pill">最终排名 4</span>
+<div class="case-metrics">
+<div class="cm"><div class="k">加分项 add</div><div class="v">0.801</div></div>
+<div class="cm"><div class="k">上架天数</div><div class="v">15 天</div></div>
+<div class="cm"><div class="k">近1年累计</div><div class="v">19 万</div></div>
+<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:#16a34a">0.995</div></div>
+<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:#16a34a">0.999</div></div>
+<div class="cm"><div class="k">最终得分</div><div class="v" style="color:#16a34a">0.796</div></div>
+</div>
+<div class="desc">上架仅 15 天，fd=0.995 / fc=0.999 基本无衰减，add=0.801 转化为得分 0.796、第 4 名。</div></div>
+
+<div class="case-card new"><h4>异兽吞噬进化 —— 上架 117 天冲上第 5</h4><span class="rank-pill">最终排名 5</span>
+<div class="case-metrics">
+<div class="cm"><div class="k">加分项 add</div><div class="v">0.839</div></div>
+<div class="cm"><div class="k">上架天数</div><div class="v">117 天</div></div>
+<div class="cm"><div class="k">近1年累计</div><div class="v">535 万</div></div>
+<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:#16a34a">0.957</div></div>
+<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:#16a34a">0.974</div></div>
+<div class="cm"><div class="k">最终得分</div><div class="v" style="color:#16a34a">0.782</div></div>
+</div>
+<div class="desc">上架 117 天，fd=0.957 / fc=0.974 衰减轻微，add=0.839 转化为得分 0.782、第 5 名。</div></div>
+
+</div>
+</div>
+</section>
 
 <section><div class="sec-head"><span class="sec-num">06</span><span class="sec-title">结论</span></div>
 <div class="card concl"><ul>
