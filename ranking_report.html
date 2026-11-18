@@ -34,7 +34,7 @@ section{margin-top:42px}
 table{width:100%;border-collapse:collapse;font-size:13px}
 th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
 th{background:var(--navy);color:#fff;font-size:12.5px;white-space:nowrap}
-tr:nth-child(even) td{background:#fafbfd}
+tr:nth-child(even) td{background:#fafbfd}tr.row-top6 td{background:#fef3f2}
 td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}td.c,th.c{text-align:center}
 .rank-medal{display:inline-block;min-width:22px;height:22px;line-height:22px;text-align:center;border-radius:6px;font-size:12px;font-weight:700;color:#fff}
 .r1{background:#d97706}.r2{background:#9ca3af}.r3{background:#b45309}.rn{background:#e5e7eb;color:#374151}
@@ -47,7 +47,7 @@ h3{color:var(--navy);font-size:16px;margin-bottom:8px}h4{color:var(--navy);margi
 .case-card.old{border-left:5px solid #16a34a}.case-card.new{border-left:5px solid var(--red)}
 .case-card h4{font-size:16px}.rank-pill{font-size:12px;color:#fff;background:var(--red);border-radius:12px;padding:2px 10px;display:inline-block;margin:8px 0}
 .case-card.old .rank-pill{background:#16a34a}
-.rank-pill.add-pill{background:var(--blue);margin-left:6px}
+.rank-pill.add-pill{background:#d97706;margin-left:6px}
 .case-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
 .cm{background:#f8fafc;border-radius:8px;padding:8px 12px}.cm .k{font-size:12px;color:var(--muted)}.cm .v{font-size:16px;font-weight:700}
 .case-card .desc{font-size:13px;margin-top:12px;background:#fef3f2;border-radius:8px;padding:10px 12px}
@@ -226,7 +226,7 @@ th.sort.asc::after{content:' ↑'}th.sort.desc::after{content:' ↓'}
 <div class="case-group-title"><span class="dot new"></span>收益新玩法 · 6 个典型代表</div>
 <div class="case">
 
-<div class="case-card new"><h4>我的宠物都是妖 —— 上架 29 天登顶</h4><span class="rank-pill">最终排名 1</span>
+<div class="case-card new"><h4>我的宠物都是妖 —— 上架 29 天登顶</h4><span class="rank-pill">最终排名 1</span> <span class="rank-pill add-pill">add 原始排名 第 2</span>
 <div class="case-metrics">
 <div class="cm"><div class="k">加分项 add</div><div class="v">0.901</div></div>
 <div class="cm"><div class="k">上架天数</div><div class="v">29 天</div></div>
@@ -237,7 +237,7 @@ th.sort.asc::after{content:' ↑'}th.sort.desc::after{content:' ↓'}
 </div>
 <div class="desc">上架仅 29 天，fd/fc 均≈1，add=0.901 几乎原样转化为得分 0.887，靠近期新进与流水登顶。</div></div>
 
-<div class="case-card new"><h4>一刀9999修仙 —— 上架 64 天冲上第 2</h4><span class="rank-pill">最终排名 2</span>
+<div class="case-card new"><h4>一刀9999修仙 —— 上架 64 天冲上第 2</h4><span class="rank-pill">最终排名 2</span> <span class="rank-pill add-pill">add 原始排名 第 3</span>
 <div class="case-metrics">
 <div class="cm"><div class="k">加分项 add</div><div class="v">0.844</div></div>
 <div class="cm"><div class="k">上架天数</div><div class="v">64 天</div></div>
@@ -248,7 +248,7 @@ th.sort.asc::after{content:' ↑'}th.sort.desc::after{content:' ↓'}
 </div>
 <div class="desc">上架 64 天，fd=0.980 / fc=0.987 几乎无衰减，add=0.844 转化为得分 0.817、第 2 名。</div></div>
 
-<div class="case-card new"><h4>一发入魂 —— 上架 70 天冲上第 3</h4><span class="rank-pill">最终排名 3</span>
+<div class="case-card new"><h4>一发入魂 —— 上架 70 天冲上第 3</h4><span class="rank-pill">最终排名 3</span> <span class="rank-pill add-pill">add 原始排名 第 5</span>
 <div class="case-metrics">
 <div class="cm"><div class="k">加分项 add</div><div class="v">0.831</div></div>
 <div class="cm"><div class="k">上架天数</div><div class="v">70 天</div></div>
@@ -259,7 +259,7 @@ th.sort.asc::after{content:' ↑'}th.sort.desc::after{content:' ↓'}
 </div>
 <div class="desc">上架 70 天，fd/fc≈1，add=0.831 转化为得分 0.807、第 3 名，衰减几乎为零。</div></div>
 
-<div class="case-card new"><h4>真3D御剑修仙 —— 上架 15 天冲上第 4</h4><span class="rank-pill">最终排名 4</span>
+<div class="case-card new"><h4>真3D御剑修仙 —— 上架 15 天冲上第 4</h4><span class="rank-pill">最终排名 4</span> <span class="rank-pill add-pill">add 原始排名 第 9</span>
 <div class="case-metrics">
 <div class="cm"><div class="k">加分项 add</div><div class="v">0.801</div></div>
 <div class="cm"><div class="k">上架天数</div><div class="v">15 天</div></div>
@@ -270,7 +270,7 @@ th.sort.asc::after{content:' ↑'}th.sort.desc::after{content:' ↓'}
 </div>
 <div class="desc">上架仅 15 天，fd=0.995 / fc=0.999 基本无衰减，add=0.801 转化为得分 0.796、第 4 名。</div></div>
 
-<div class="case-card new"><h4>异兽吞噬进化 —— 上架 117 天冲上第 5</h4><span class="rank-pill">最终排名 5</span>
+<div class="case-card new"><h4>异兽吞噬进化 —— 上架 117 天冲上第 5</h4><span class="rank-pill">最终排名 5</span> <span class="rank-pill add-pill">add 原始排名 第 4</span>
 <div class="case-metrics">
 <div class="cm"><div class="k">加分项 add</div><div class="v">0.839</div></div>
 <div class="cm"><div class="k">上架天数</div><div class="v">117 天</div></div>
@@ -281,7 +281,7 @@ th.sort.asc::after{content:' ↑'}th.sort.desc::after{content:' ↓'}
 </div>
 <div class="desc">上架 117 天，fd=0.957 / fc=0.974 衰减轻微，add=0.839 转化为得分 0.782、第 5 名。</div></div>
 
-<div class="case-card new"><h4>和平桌球 —— 上架 13 天冲上第 6</h4><span class="rank-pill">最终排名 6</span>
+<div class="case-card new"><h4>和平桌球 —— 上架 13 天冲上第 6</h4><span class="rank-pill">最终排名 6</span> <span class="rank-pill add-pill">add 原始排名 第 11</span>
 <div class="case-metrics">
 <div class="cm"><div class="k">加分项 add</div><div class="v">0.773</div></div>
 <div class="cm"><div class="k">上架天数</div><div class="v">13 天</div></div>
@@ -361,7 +361,7 @@ function renderTable(){
   var list=DATA.filter(function(d){return !q||d.name.indexOf(q)>=0});
   if(tblState.k){list=list.slice().sort(function(a,b){var va=a[tblState.k],vb=b[tblState.k];return va===vb?0:(va<vb?-tblState.dir:tblState.dir)})}
   document.getElementById('tblBody').innerHTML=list.map(function(d){
-    return '<tr><td class="c"><span class="rank-medal '+medal(d.rank)+'">'+d.rank+'</span></td><td>'+d.name+'</td>'
+    return '<tr'+(d.rank<=6?' class="row-top6"':'')+'><td class="c"><span class="rank-medal '+medal(d.rank)+'">'+d.rank+'</span></td><td>'+d.name+'</td>'
       +'<td class="r">'+(d.days==null?'—':d.days)+'</td><td class="r">'+nf(d.new)+'</td><td class="r">'+nf(d.ret)+'</td>'
       +'<td class="r">'+nf(d.rev)+'</td><td class="r">'+nf(d.cum)+'</td><td class="r">'+d.add.toFixed(3)+'</td>'
       +'<td class="r">'+d.fd.toFixed(3)+'</td><td class="r">'+d.fc.toFixed(3)+'</td><td class="r"><b>'+d.score.toFixed(4)+'</b></td></tr>';
