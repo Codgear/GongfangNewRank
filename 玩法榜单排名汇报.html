@@ -325,7 +325,7 @@ tooltip:{trigger:'axis',formatter:function(p){return p[0].axisValue+' 天 → fd
 xAxis:{type:'value',name:'上架天数',min:0,max:1600},yAxis:{type:'value',name:'fd',min:0,max:1.05},
 series:[{type:'line',data:xs.map(function(x,i){return[x,ys[i]]}),smooth:true,symbol:'none',lineStyle:{color:RED,width:2.5},
 areaStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(192,0,0,.18)'},{offset:1,color:'rgba(192,0,0,0)'}])},
-markLine:{symbol:'none',label:{formatter:'{b}'},data:[{xAxis:180,name:'180天分界',lineStyle:{color:GRAY,type:'dashed'}},{yAxis:0.9,name:'fd=0.9',lineStyle:{color:'#d97706',type:'dashed'}},{yAxis:0.5,name:'fd=0.5',lineStyle:{color:'#16a34a',type:'dashed'}}]}}]})})();
+markLine:{symbol:'none',label:{formatter:'{b}'},data:[{xAxis:180,name:'180天 · fd=0.91',lineStyle:{color:GRAY,type:'dashed'}},{yAxis:0.9,name:'fd=0.9',lineStyle:{color:'#d97706',type:'dashed'}},{yAxis:0.5,name:'fd=0.5',lineStyle:{color:'#16a34a',type:'dashed'}}]}}]})})();
 
 (function(){var xs=[],ys=[];for(var c=0;c<=60000000;c+=500000){xs.push(c);ys.push(fcOf(c))}
 init('cFc').setOption({grid:{left:62,right:24,top:28,bottom:40},
@@ -333,7 +333,7 @@ tooltip:{trigger:'axis',formatter:function(p){return w(p[0].axisValue)+' → fc=
 xAxis:{type:'value',name:'近1年累计玩家',min:0,max:60000000,axisLabel:{formatter:w}},yAxis:{type:'value',name:'fc',min:0,max:1.05},
 series:[{type:'line',data:xs.map(function(x,i){return[x,ys[i]]}),smooth:true,symbol:'none',lineStyle:{color:RED,width:2.5},
 areaStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(192,0,0,.18)'},{offset:1,color:'rgba(192,0,0,0)'}])},
-markLine:{symbol:'none',label:{formatter:'{b}'},data:[{xAxis:15000000,name:'1500万分界',lineStyle:{color:GRAY,type:'dashed'}},{yAxis:0.9,name:'fc=0.9',lineStyle:{color:'#d97706',type:'dashed'}},{yAxis:0.5,name:'fc=0.5',lineStyle:{color:'#16a34a',type:'dashed'}}]}}]})})();
+markLine:{symbol:'none',label:{formatter:'{b}'},data:[{xAxis:15000000,name:'1500万 · fc=0.90',lineStyle:{color:GRAY,type:'dashed'}},{yAxis:0.9,name:'fc=0.9',lineStyle:{color:'#d97706',type:'dashed'}},{yAxis:0.5,name:'fc=0.5',lineStyle:{color:'#16a34a',type:'dashed'}}]}}]})})();
 
 (function(){var top=DATA.slice(0,20).reverse();
 init('cTop').setOption({grid:{left:130,right:70,top:34,bottom:30},
