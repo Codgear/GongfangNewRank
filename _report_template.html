@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>玩法榜单排名方案与效果汇报</title>
+<title>工坊新玩法榜单排名逻辑与线上玩法排名效果</title>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
 <script>window.echarts||document.write('<script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.5.0/echarts.min.js"><\/script>')</script>
 <style>
@@ -54,11 +54,18 @@ h3{color:var(--navy);font-size:16px;margin-bottom:8px}h4{color:var(--navy);margi
 .concl li{list-style:none;padding-left:26px;margin-bottom:12px;font-size:14px;position:relative}
 .concl li::before{content:"✓";position:absolute;left:0;color:#16a34a;font-weight:700}
 .note{font-size:12.5px;color:var(--muted);margin-top:8px}
+.tbl-tools{display:flex;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.tbl-tools input{width:320px;max-width:100%;padding:8px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;outline:none;font-family:inherit}
+.tbl-tools input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(46,117,182,.12)}
+.tbl-count{font-size:12.5px;color:var(--muted)}
+th.sort{cursor:pointer;user-select:none;white-space:nowrap}
+th.sort:hover{background:#2e75b6}
+th.sort.asc::after{content:' ↑'}th.sort.desc::after{content:' ↓'}
 </style></head><body>
 
 <div class="hero"><div class="wrap">
 <span class="tag">GREEN OASIS WORKSHOP · RANKING REPORT</span>
-<h1>玩法榜单排名方案与效果汇报</h1>
+<h1>工坊新玩法榜单排名逻辑与线上玩法排名效果</h1>
 <div class="sub">基于「加分项 × 时间衰减 × 规模衰减」三段式综合评分模型，对新上架玩法给予保护、对超大体量 / 超长运营老玩法适度降权，让榜单反映"当前热度与价值"。</div>
 <div class="meta">
 <div><b>__N__</b>参与排名玩法</div><div><b>2026-11-17</b>榜单统计日期</div>
@@ -118,10 +125,11 @@ h3{color:var(--navy);font-size:16px;margin-bottom:8px}h4{color:var(--navy);margi
 <p class="note" style="margin-bottom:4px">若无衰减应落于对角线（score=add）；点越低于对角线，被 fd/fc 衰减得越厉害。</p>
 <div id="cScatter" class="chart tall"></div></div>
 </div>
-<div class="card" style="margin-top:20px"><h4>榜单前 20 名明细</h4>
-<div class="tbl-scroll"><table>
-<thead><tr><th class="c">排名</th><th>玩法名</th><th class="r">天数</th><th class="r">近7日新进</th><th class="r">近7日留存</th><th class="r">近7日绿洲币</th><th class="r">近1年累计</th><th class="r">加分项</th><th class="r">fd</th><th class="r">fc</th><th class="r">最终得分</th></tr></thead>
-<tbody>__ROWS__</tbody></table></div></div>
+<div class="card" style="margin-top:20px"><h4>完整榜单（全部 __N__ 个玩法）</h4>
+<div class="tbl-tools"><input id="tblSearch" type="text" placeholder="搜索玩法名…" autocomplete="off"><span class="tbl-count" id="tblCount"></span><span class="note" style="margin-top:0">点击表头可按该列升序 / 降序排序</span></div>
+<div class="tbl-scroll"><table id="tbl">
+<thead><tr><th class="c sort" data-k="rank">排名</th><th>玩法名</th><th class="r sort" data-k="days">上架天数</th><th class="r sort" data-k="new">近7日新进</th><th class="r sort" data-k="ret">近7日留存</th><th class="r sort" data-k="rev">近7日绿洲币</th><th class="r sort" data-k="cum">近一年累计参与人数</th><th class="r sort" data-k="add">加分项</th><th class="r sort" data-k="fd">fd</th><th class="r sort" data-k="fc">fc</th><th class="r sort" data-k="score">最终得分</th></tr></thead>
+<tbody id="tblBody"></tbody></table></div></div>
 </section>
 
 <section><div class="sec-head"><span class="sec-num">05</span><span class="sec-title">典型案例</span><span class="sec-sub">老玩法被降温 / 新玩法登顶</span></div>
@@ -211,5 +219,31 @@ xAxis:{type:'value',name:'加分项 add',min:0,max:1},yAxis:{type:'value',name:'
 series:[{type:'scatter',data:pts,symbolSize:6,
 itemStyle:{color:function(p){return DATA[p.dataIndex].days>180?'#e5e7eb':'#2e75b6'}},
 markLine:{silent:true,symbol:'none',label:{formatter:'score=add',fontSize:10},data:[{xAxis:0,yAxis:0,x2:1,y2:1,lineStyle:{color:RED,type:'dashed',width:1.5}}]}}]})})();
+
+var tblState={k:'rank',dir:1,q:''};
+function medal(r){return r==1?'r1':r==2?'r2':r==3?'r3':'rn'}
+function nf(v){return v==null?'—':v.toLocaleString('en-US')}
+function renderTable(){
+  var q=tblState.q.trim();
+  var list=DATA.filter(function(d){return !q||d.name.indexOf(q)>=0});
+  if(tblState.k){list=list.slice().sort(function(a,b){var va=a[tblState.k],vb=b[tblState.k];return va===vb?0:(va<vb?-tblState.dir:tblState.dir)})}
+  document.getElementById('tblBody').innerHTML=list.map(function(d){
+    return '<tr><td class="c"><span class="rank-medal '+medal(d.rank)+'">'+d.rank+'</span></td><td>'+d.name+'</td>'
+      +'<td class="r">'+(d.days==null?'—':d.days)+'</td><td class="r">'+nf(d.new)+'</td><td class="r">'+nf(d.ret)+'</td>'
+      +'<td class="r">'+nf(d.rev)+'</td><td class="r">'+nf(d.cum)+'</td><td class="r">'+d.add.toFixed(3)+'</td>'
+      +'<td class="r">'+d.fd.toFixed(3)+'</td><td class="r">'+d.fc.toFixed(3)+'</td><td class="r"><b>'+d.score.toFixed(4)+'</b></td></tr>';
+  }).join('');
+  document.getElementById('tblCount').textContent='共 '+list.length+' 个玩法';
+  document.querySelectorAll('#tbl th.sort').forEach(function(th){th.classList.remove('asc','desc')});
+  var th=document.querySelector('#tbl th.sort[data-k="'+tblState.k+'"]');
+  if(th)th.classList.add(tblState.dir===1?'asc':'desc');
+}
+document.getElementById('tblSearch').addEventListener('input',function(){tblState.q=this.value;renderTable()});
+document.querySelectorAll('#tbl th.sort').forEach(function(th){
+  th.addEventListener('click',function(){var k=th.getAttribute('data-k');
+    if(tblState.k===k){tblState.dir=-tblState.dir}else{tblState.k=k;tblState.dir=1}
+    renderTable();});
+});
+renderTable();
 </script>
 </body></html>

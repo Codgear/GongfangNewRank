@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>玩法榜单排名方案与效果汇报</title>
+<title>工坊新玩法榜单排名逻辑与线上玩法排名效果</title>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
 <script>window.echarts||document.write('<script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.5.0/echarts.min.js"><\/script>')</script>
 <style>
@@ -54,11 +54,18 @@ h3{color:var(--navy);font-size:16px;margin-bottom:8px}h4{color:var(--navy);margi
 .concl li{list-style:none;padding-left:26px;margin-bottom:12px;font-size:14px;position:relative}
 .concl li::before{content:"✓";position:absolute;left:0;color:#16a34a;font-weight:700}
 .note{font-size:12.5px;color:var(--muted);margin-top:8px}
+.tbl-tools{display:flex;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.tbl-tools input{width:320px;max-width:100%;padding:8px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;outline:none;font-family:inherit}
+.tbl-tools input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(46,117,182,.12)}
+.tbl-count{font-size:12.5px;color:var(--muted)}
+th.sort{cursor:pointer;user-select:none;white-space:nowrap}
+th.sort:hover{background:#2e75b6}
+th.sort.asc::after{content:' ↑'}th.sort.desc::after{content:' ↓'}
 </style></head><body>
 
 <div class="hero"><div class="wrap">
 <span class="tag">GREEN OASIS WORKSHOP · RANKING REPORT</span>
-<h1>玩法榜单排名方案与效果汇报</h1>
+<h1>工坊新玩法榜单排名逻辑与线上玩法排名效果</h1>
 <div class="sub">基于「加分项 × 时间衰减 × 规模衰减」三段式综合评分模型，对新上架玩法给予保护、对超大体量 / 超长运营老玩法适度降权，让榜单反映"当前热度与价值"。</div>
 <div class="meta">
 <div><b>592</b>参与排名玩法</div><div><b>2026-11-17</b>榜单统计日期</div>
@@ -118,29 +125,11 @@ h3{color:var(--navy);font-size:16px;margin-bottom:8px}h4{color:var(--navy);margi
 <p class="note" style="margin-bottom:4px">若无衰减应落于对角线（score=add）；点越低于对角线，被 fd/fc 衰减得越厉害。</p>
 <div id="cScatter" class="chart tall"></div></div>
 </div>
-<div class="card" style="margin-top:20px"><h4>榜单前 20 名明细</h4>
-<div class="tbl-scroll"><table>
-<thead><tr><th class="c">排名</th><th>玩法名</th><th class="r">天数</th><th class="r">近7日新进</th><th class="r">近7日留存</th><th class="r">近7日绿洲币</th><th class="r">近1年累计</th><th class="r">加分项</th><th class="r">fd</th><th class="r">fc</th><th class="r">最终得分</th></tr></thead>
-<tbody><tr><td class="c"><span class="rank-medal r1">1</span></td><td>我的宠物都是妖</td><td class="r">29</td><td class="r">328,838</td><td class="r">372,179</td><td class="r">4,882,542</td><td class="r">1,203,915</td><td class="r">0.901</td><td class="r">0.991</td><td class="r">0.993</td><td class="r"><b>0.8870</b></td></tr>
-<tr><td class="c"><span class="rank-medal r2">2</span></td><td>一刀9999修仙</td><td class="r">64</td><td class="r">75,615</td><td class="r">136,561</td><td class="r">4,805,399</td><td class="r">2,231,692</td><td class="r">0.844</td><td class="r">0.980</td><td class="r">0.987</td><td class="r"><b>0.8168</b></td></tr>
-<tr><td class="c"><span class="rank-medal r3">3</span></td><td>一发入魂</td><td class="r">70</td><td class="r">76,659</td><td class="r">117,878</td><td class="r">2,899,198</td><td class="r">1,064,267</td><td class="r">0.831</td><td class="r">0.978</td><td class="r">0.994</td><td class="r"><b>0.8074</b></td></tr>
-<tr><td class="c"><span class="rank-medal rn">4</span></td><td>真3D御剑修仙</td><td class="r">15</td><td class="r">139,669</td><td class="r">13,196</td><td class="r">1,725,978</td><td class="r">187,759</td><td class="r">0.801</td><td class="r">0.995</td><td class="r">0.999</td><td class="r"><b>0.7960</b></td></tr>
-<tr><td class="c"><span class="rank-medal rn">5</span></td><td>异兽吞噬进化</td><td class="r">117</td><td class="r">47,384</td><td class="r">375,522</td><td class="r">3,197,739</td><td class="r">5,351,992</td><td class="r">0.839</td><td class="r">0.957</td><td class="r">0.974</td><td class="r"><b>0.7815</b></td></tr>
-<tr><td class="c"><span class="rank-medal rn">6</span></td><td>和平桌球</td><td class="r">13</td><td class="r">188,970</td><td class="r">25,963</td><td class="r">208,339</td><td class="r">302,556</td><td class="r">0.773</td><td class="r">0.996</td><td class="r">0.998</td><td class="r"><b>0.7681</b></td></tr>
-<tr><td class="c"><span class="rank-medal rn">7</span></td><td>源者大陆</td><td class="r">29</td><td class="r">43,237</td><td class="r">35,891</td><td class="r">963,428</td><td class="r">383,678</td><td class="r">0.771</td><td class="r">0.991</td><td class="r">0.998</td><td class="r"><b>0.7628</b></td></tr>
-<tr><td class="c"><span class="rank-medal rn">8</span></td><td>打铁成仙帝</td><td class="r">70</td><td class="r">22,391</td><td class="r">43,418</td><td class="r">983,837</td><td class="r">1,272,998</td><td class="r">0.757</td><td class="r">0.978</td><td class="r">0.993</td><td class="r"><b>0.7344</b></td></tr>
-<tr><td class="c"><span class="rank-medal rn">9</span></td><td>我在洪荒钓神兽</td><td class="r">92</td><td class="r">37,450</td><td class="r">48,154</td><td class="r">376,459</td><td class="r">2,474,283</td><td class="r">0.751</td><td class="r">0.969</td><td class="r">0.986</td><td class="r"><b>0.7179</b></td></tr>
-<tr><td class="c"><span class="rank-medal rn">10</span></td><td>标枪之王</td><td class="r">14</td><td class="r">82,136</td><td class="r">3,625</td><td class="r">174,108</td><td class="r">110,391</td><td class="r">0.714</td><td class="r">0.996</td><td class="r">0.999</td><td class="r"><b>0.7103</b></td></tr>
-<tr><td class="c"><span class="rank-medal rn">11</span></td><td>孵蛋赚钱当首富</td><td class="r">118</td><td class="r">17,014</td><td class="r">43,680</td><td class="r">601,137</td><td class="r">1,855,634</td><td class="r">0.738</td><td class="r">0.957</td><td class="r">0.989</td><td class="r"><b>0.6988</b></td></tr>
-<tr><td class="c"><span class="rank-medal rn">12</span></td><td>一剑开天门</td><td class="r">175</td><td class="r">33,097</td><td class="r">271,474</td><td class="r">755,382</td><td class="r">8,488,673</td><td class="r">0.791</td><td class="r">0.915</td><td class="r">0.965</td><td class="r"><b>0.6984</b></td></tr>
-<tr><td class="c"><span class="rank-medal rn">13</span></td><td>赛车模拟器</td><td class="r">97</td><td class="r">22,498</td><td class="r">54,080</td><td class="r">184,610</td><td class="r">1,867,035</td><td class="r">0.723</td><td class="r">0.967</td><td class="r">0.989</td><td class="r"><b>0.6917</b></td></tr>
-<tr><td class="c"><span class="rank-medal rn">14</span></td><td>逃离海啸偷脑红</td><td class="r">14</td><td class="r">93,457</td><td class="r">13,038</td><td class="r">20,972</td><td class="r">133,223</td><td class="r">0.691</td><td class="r">0.996</td><td class="r">0.999</td><td class="r"><b>0.6873</b></td></tr>
-<tr><td class="c"><span class="rank-medal rn">15</span></td><td>我要当门主</td><td class="r">12</td><td class="r">10,386</td><td class="r">1,802</td><td class="r">719,896</td><td class="r">14,673</td><td class="r">0.677</td><td class="r">0.996</td><td class="r">1.000</td><td class="r"><b>0.6747</b></td></tr>
-<tr><td class="c"><span class="rank-medal rn">16</span></td><td>宗门崛起</td><td class="r">126</td><td class="r">3,549</td><td class="r">1,247</td><td class="r">12,222,800</td><td class="r">541,481</td><td class="r">0.705</td><td class="r">0.952</td><td class="r">0.997</td><td class="r"><b>0.6690</b></td></tr>
-<tr><td class="c"><span class="rank-medal rn">17</span></td><td>修仙打怪模拟器</td><td class="r">224</td><td class="r">26,824</td><td class="r">251,745</td><td class="r">2,180,699</td><td class="r">8,148,200</td><td class="r">0.808</td><td class="r">0.855</td><td class="r">0.966</td><td class="r"><b>0.6668</b></td></tr>
-<tr><td class="c"><span class="rank-medal rn">18</span></td><td>高空虫塔大逃亡</td><td class="r">50</td><td class="r">50,170</td><td class="r">6,514</td><td class="r">22,988</td><td class="r">178,946</td><td class="r">0.664</td><td class="r">0.985</td><td class="r">0.999</td><td class="r"><b>0.6535</b></td></tr>
-<tr><td class="c"><span class="rank-medal rn">19</span></td><td>和平车神+1</td><td class="r">29</td><td class="r">65,674</td><td class="r">4,618</td><td class="r">12,096</td><td class="r">289,497</td><td class="r">0.652</td><td class="r">0.991</td><td class="r">0.998</td><td class="r"><b>0.6451</b></td></tr>
-<tr><td class="c"><span class="rank-medal rn">20</span></td><td>别扶我！我还能跳</td><td class="r">64</td><td class="r">7,033</td><td class="r">14,120</td><td class="r">98,598</td><td class="r">575,665</td><td class="r">0.655</td><td class="r">0.980</td><td class="r">0.997</td><td class="r"><b>0.6399</b></td></tr></tbody></table></div></div>
+<div class="card" style="margin-top:20px"><h4>完整榜单（全部 592 个玩法）</h4>
+<div class="tbl-tools"><input id="tblSearch" type="text" placeholder="搜索玩法名…" autocomplete="off"><span class="tbl-count" id="tblCount"></span><span class="note" style="margin-top:0">点击表头可按该列升序 / 降序排序</span></div>
+<div class="tbl-scroll"><table id="tbl">
+<thead><tr><th class="c sort" data-k="rank">排名</th><th>玩法名</th><th class="r sort" data-k="days">上架天数</th><th class="r sort" data-k="new">近7日新进</th><th class="r sort" data-k="ret">近7日留存</th><th class="r sort" data-k="rev">近7日绿洲币</th><th class="r sort" data-k="cum">近一年累计参与人数</th><th class="r sort" data-k="add">加分项</th><th class="r sort" data-k="fd">fd</th><th class="r sort" data-k="fc">fc</th><th class="r sort" data-k="score">最终得分</th></tr></thead>
+<tbody id="tblBody"></tbody></table></div></div>
 </section>
 
 <section><div class="sec-head"><span class="sec-num">05</span><span class="sec-title">典型案例</span><span class="sec-sub">老玩法被降温 / 新玩法登顶</span></div>
@@ -230,5 +219,31 @@ xAxis:{type:'value',name:'加分项 add',min:0,max:1},yAxis:{type:'value',name:'
 series:[{type:'scatter',data:pts,symbolSize:6,
 itemStyle:{color:function(p){return DATA[p.dataIndex].days>180?'#e5e7eb':'#2e75b6'}},
 markLine:{silent:true,symbol:'none',label:{formatter:'score=add',fontSize:10},data:[{xAxis:0,yAxis:0,x2:1,y2:1,lineStyle:{color:RED,type:'dashed',width:1.5}}]}}]})})();
+
+var tblState={k:'rank',dir:1,q:''};
+function medal(r){return r==1?'r1':r==2?'r2':r==3?'r3':'rn'}
+function nf(v){return v==null?'—':v.toLocaleString('en-US')}
+function renderTable(){
+  var q=tblState.q.trim();
+  var list=DATA.filter(function(d){return !q||d.name.indexOf(q)>=0});
+  if(tblState.k){list=list.slice().sort(function(a,b){var va=a[tblState.k],vb=b[tblState.k];return va===vb?0:(va<vb?-tblState.dir:tblState.dir)})}
+  document.getElementById('tblBody').innerHTML=list.map(function(d){
+    return '<tr><td class="c"><span class="rank-medal '+medal(d.rank)+'">'+d.rank+'</span></td><td>'+d.name+'</td>'
+      +'<td class="r">'+(d.days==null?'—':d.days)+'</td><td class="r">'+nf(d.new)+'</td><td class="r">'+nf(d.ret)+'</td>'
+      +'<td class="r">'+nf(d.rev)+'</td><td class="r">'+nf(d.cum)+'</td><td class="r">'+d.add.toFixed(3)+'</td>'
+      +'<td class="r">'+d.fd.toFixed(3)+'</td><td class="r">'+d.fc.toFixed(3)+'</td><td class="r"><b>'+d.score.toFixed(4)+'</b></td></tr>';
+  }).join('');
+  document.getElementById('tblCount').textContent='共 '+list.length+' 个玩法';
+  document.querySelectorAll('#tbl th.sort').forEach(function(th){th.classList.remove('asc','desc')});
+  var th=document.querySelector('#tbl th.sort[data-k="'+tblState.k+'"]');
+  if(th)th.classList.add(tblState.dir===1?'asc':'desc');
+}
+document.getElementById('tblSearch').addEventListener('input',function(){tblState.q=this.value;renderTable()});
+document.querySelectorAll('#tbl th.sort').forEach(function(th){
+  th.addEventListener('click',function(){var k=th.getAttribute('data-k');
+    if(tblState.k===k){tblState.dir=-tblState.dir}else{tblState.k=k;tblState.dir=1}
+    renderTable();});
+});
+renderTable();
 </script>
 </body></html>
