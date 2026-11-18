@@ -346,7 +346,7 @@ markLine:{symbol:'none',label:{formatter:'{b}'},data:[{xAxis:15000000,name:'1500
 init('cTop').setOption({grid:{left:160,right:70,top:34,bottom:30},
 legend:{data:['新进贡献','留存贡献','流水贡献'],top:0,textStyle:{fontSize:12}},
 tooltip:{trigger:'axis',axisPointer:{type:'shadow'},formatter:function(p){var d=top[p[0].dataIndex];return '<b>'+d.name+'</b>（第'+d.rank+'名）<br>新进 '+d.an.toFixed(3)+' · 留存 '+d.ar.toFixed(3)+' · 流水 '+d.av.toFixed(3)+'<br>add '+d.add.toFixed(3)+' · fd '+d.fd.toFixed(3)+' · fc '+d.fc.toFixed(3)+' · 得分 '+d.score.toFixed(4)}},
-xAxis:{type:'value',max:1},yAxis:{type:'category',data:top.map(function(d){return d.rank+'. '+d.name}),axisLabel:{fontSize:12,align:'left'}},
+xAxis:{type:'value',max:1},yAxis:{type:'category',data:top.map(function(d){return d.rank+'. '+d.name}),axisLabel:{fontSize:12,align:'left',margin:140}},
 series:[
 {name:'新进贡献',type:'bar',stack:'a',data:top.map(function(d){return d.an}),barMaxWidth:16,itemStyle:{color:RED},label:{show:true,position:'inside',color:'#fff',fontSize:9,formatter:function(p){var d=top[p.dataIndex];return Math.round(p.value/d.add*100)+'%'}}},
 {name:'留存贡献',type:'bar',stack:'a',data:top.map(function(d){return d.ar}),itemStyle:{color:'#29b6f6'},label:{show:true,position:'inside',color:'#fff',fontSize:9,formatter:function(p){var d=top[p.dataIndex];return Math.round(p.value/d.add*100)+'%'}}},
