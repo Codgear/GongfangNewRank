@@ -59,6 +59,8 @@ h3{color:var(--navy);font-size:16px;margin-bottom:8px}h4{color:var(--navy);margi
 .case-group-title .dot.new{background:#16a34a}
 .concl li{list-style:none;padding-left:26px;margin-bottom:12px;font-size:14px;position:relative}
 .concl li::before{content:"✓";position:absolute;left:0;color:#16a34a;font-weight:700}
+.vote-btn{display:inline-block;background:linear-gradient(135deg,#1f3864,#2e75b6);color:#fff;font-size:15px;font-weight:700;padding:13px 30px;border-radius:26px;text-decoration:none;box-shadow:0 4px 14px rgba(46,117,182,.35);transition:.2s}
+.vote-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(46,117,182,.45)}
 .note{font-size:12.5px;color:var(--muted);margin-top:8px}
 .tbl-tools{display:flex;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap}
 .tbl-tools input{width:320px;max-width:100%;padding:8px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;outline:none;font-family:inherit}
@@ -99,11 +101,11 @@ th.sort.asc::after{content:' ↑'}th.sort.desc::after{content:' ↓'}
 <tr><td>Rev 近7日绿洲币消耗</td><td class="r"><b>0.40</b></td><td>商业价值</td></tr></table></div>
 <div class="card"><h3>② 时间衰减 fd —— 新玩法保护</h3>
 <p style="font-size:13px;color:#374151">对"上架天数"惩罚：<b>180 天内</b>系数 a′ 从 0.0003 平滑升至 0.00055（温和）；<b>180 天后</b>加速逼近 0.00437，使 500 天处 fd≈0.5。新玩法 fd≈1。</p>
-<div style="margin:12px 0;text-align:center;font-size:13.5px;font-weight:700;color:var(--red)">fd = 1 / ( 1 + a′(days)·days )</div>
+<div style="margin:12px 0;text-align:center;font-size:13.5px;font-weight:700;color:#16a34a">fd = 1 / ( 1 + a′(days)·days )</div>
 <div class="note">分界 DAYS_MID=180；过渡宽度 K_LEFT=40 / K_RIGHT=400。</div></div>
 <div class="card"><h3>③ 规模衰减 fc —— 抑制大体量</h3>
 <p style="font-size:13px;color:#374151">对"近1年累计玩家数"惩罚：<b>1500 万内</b>缓慢、<b>1500 万后</b>加速，抑制超大体量老玩法"靠存量霸榜"。</p>
-<div style="margin:12px 0;text-align:center;font-size:13.5px;font-weight:700;color:var(--red)">fc = 1 / ( 1 + b′(cum)·cum )</div>
+<div style="margin:12px 0;text-align:center;font-size:13.5px;font-weight:700;color:#16a34a">fc = 1 / ( 1 + b′(cum)·cum )</div>
 <div class="note">分界 CUM_MID=1500万；过渡宽度 330万 / 3300万。</div></div>
 </div></section>
 
@@ -126,7 +128,7 @@ th.sort.asc::after{content:' ↑'}th.sort.desc::after{content:' ↓'}
 
 <section><div class="sec-head"><span class="sec-num">04</span><span class="sec-title">榜单效果</span><span class="sec-sub">加分项 vs 衰减因子的博弈</span></div>
 <div class="grid2">
-<div class="card"><h4>Top 15 综合分排行</h4><div id="cTop" class="chart tall"></div></div>
+<div class="card"><h4>Top 20 综合分排行</h4><p class="note" style="margin-bottom:4px">每条展示三个加分项的贡献构成（新进 / 留存 / 流水，堆叠总和 = add）</p><div id="cTop" class="chart tall"></div></div>
 <div class="card"><h4>加分项 → 最终得分（衰减影响）</h4>
 <p class="note" style="margin-bottom:4px">若无衰减应落于对角线（score=add）；点越低于对角线，被 fd/fc 衰减得越厉害。</p>
 <div id="cScatter" class="chart tall"></div></div>
@@ -295,6 +297,13 @@ th.sort.asc::after{content:' ↑'}th.sort.desc::after{content:' ↓'}
 <li><b>榜单反映"当前价值"：</b>三因子相乘兼顾"扶持新玩法"与"抑制历史体量"双重导向。</li>
 </ul></div></section>
 
+<section><div class="sec-head"><span class="sec-num">07</span><span class="sec-title">榜单名称投票</span><span class="sec-sub">投票结果展示</span></div>
+<div class="card" style="text-align:center;padding:44px 24px">
+<h3 style="margin-bottom:12px">工坊新玩法榜单名称投票</h3>
+<p style="font-size:14px;color:#374151;margin-bottom:24px">查看榜单名称投票结果并参与投票，点击下方按钮跳转至投票页面。</p>
+<a class="vote-btn" href="https://wj.qq.com/r/vote/rank?sid=28724469&amp;hash=sy54" target="_blank" rel="noopener">前往投票页面 →</a>
+</div></section>
+
 <div style="text-align:center;margin-top:40px;font-size:12px;color:var(--muted)">数据来源：新榜单数据.xlsx（2026-11-17 真实排名） · 方案：玩法榜单排名计算说明文档 V2</div>
 </div>
 
@@ -322,16 +331,21 @@ markLine:{symbol:'none',label:{formatter:'{b}'},data:[{xAxis:180,name:'180天分
 init('cFc').setOption({grid:{left:62,right:24,top:28,bottom:40},
 tooltip:{trigger:'axis',formatter:function(p){return w(p[0].axisValue)+' → fc='+p[0].value.toFixed(3)}},
 xAxis:{type:'value',name:'近1年累计玩家',min:0,max:60000000,axisLabel:{formatter:w}},yAxis:{type:'value',name:'fc',min:0,max:1.05},
-series:[{type:'line',data:xs.map(function(x,i){return[x,ys[i]]}),smooth:true,symbol:'none',lineStyle:{color:BLUE,width:2.5},
-areaStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(46,117,182,.18)'},{offset:1,color:'rgba(46,117,182,0)'}])},
-markLine:{symbol:'none',label:{formatter:'{b}'},data:[{xAxis:15000000,name:'1500万分界',lineStyle:{color:GRAY,type:'dashed'}},{yAxis:0.9,name:'fc=0.9',lineStyle:{color:'#d97706',type:'dashed'}}]}}]})})();
+series:[{type:'line',data:xs.map(function(x,i){return[x,ys[i]]}),smooth:true,symbol:'none',lineStyle:{color:RED,width:2.5},
+areaStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(192,0,0,.18)'},{offset:1,color:'rgba(192,0,0,0)'}])},
+markLine:{symbol:'none',label:{formatter:'{b}'},data:[{xAxis:15000000,name:'1500万分界',lineStyle:{color:GRAY,type:'dashed'}},{yAxis:0.9,name:'fc=0.9',lineStyle:{color:'#d97706',type:'dashed'}},{yAxis:0.5,name:'fc=0.5',lineStyle:{color:'#16a34a',type:'dashed'}}]}}]})})();
 
-(function(){var top=DATA.slice(0,15).reverse();
-init('cTop').setOption({grid:{left:130,right:48,top:10,bottom:30},
-tooltip:{trigger:'axis',axisPointer:{type:'shadow'},formatter:function(p){var d=top[p[0].dataIndex];return d.name+'（第'+d.rank+'名）<br>得分 '+d.score.toFixed(4)+'<br>add '+d.add.toFixed(3)+' · fd '+d.fd.toFixed(3)+' · fc '+d.fc.toFixed(3)}},
+(function(){var top=DATA.slice(0,20).reverse();
+init('cTop').setOption({grid:{left:130,right:70,top:34,bottom:30},
+legend:{data:['新进贡献','留存贡献','流水贡献'],top:0,textStyle:{fontSize:12}},
+tooltip:{trigger:'axis',axisPointer:{type:'shadow'},formatter:function(p){var d=top[p[0].dataIndex];return '<b>'+d.name+'</b>（第'+d.rank+'名）<br>新进 '+d.an.toFixed(3)+' · 留存 '+d.ar.toFixed(3)+' · 流水 '+d.av.toFixed(3)+'<br>add '+d.add.toFixed(3)+' · fd '+d.fd.toFixed(3)+' · fc '+d.fc.toFixed(3)+' · 得分 '+d.score.toFixed(4)}},
 xAxis:{type:'value',max:1},yAxis:{type:'category',data:top.map(function(d){return d.name}),axisLabel:{fontSize:12}},
-series:[{type:'bar',data:top.map(function(d){return d.score}),barMaxWidth:16,itemStyle:{borderRadius:[0,6,6,0],color:new echarts.graphic.LinearGradient(0,0,1,0,[{offset:0,color:NAVY},{offset:1,color:BLUE}])},
-label:{show:true,position:'right',formatter:function(p){return p.value.toFixed(3)},fontSize:10}}]})})();
+series:[
+{name:'新进贡献',type:'bar',stack:'a',data:top.map(function(d){return d.an}),barMaxWidth:16,itemStyle:{color:BLUE}},
+{name:'留存贡献',type:'bar',stack:'a',data:top.map(function(d){return d.ar}),itemStyle:{color:'#16a34a'}},
+{name:'流水贡献',type:'bar',stack:'a',data:top.map(function(d){return d.av}),itemStyle:{color:'#d97706'},
+label:{show:true,position:'right',formatter:function(p){return top[p.dataIndex].add.toFixed(3)},fontSize:10}}
+]})})();
 
 (function(){var pts=DATA.map(function(d){return{name:d.name,rank:d.rank,days:d.days,fd:d.fd,fc:d.fc,value:[d.add,d.score]}});
 init('cScatter').setOption({grid:{left:50,right:40,top:28,bottom:44},
