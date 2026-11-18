@@ -10,7 +10,7 @@
 body{font-family:"微软雅黑","PingFang SC",sans-serif;background:var(--bg);color:var(--ink);line-height:1.7}
 .wrap{max-width:1180px;margin:0 auto;padding:0 28px 70px}
 .hero{background:linear-gradient(135deg,#0ea5e9,#38bdf8,#7dd3fc);color:#fff;padding:12px 0}
-.hero h1{font-size:18px;margin-bottom:0}.hero .sub{font-size:15px;color:rgba(255,255,255,.85);max-width:820px}
+.hero h1{font-size:32px;margin-bottom:0}.hero .sub{font-size:15px;color:rgba(255,255,255,.85);max-width:820px}
 .hero .tag{font-size:12px;letter-spacing:2px;padding:4px 14px;border:1px solid rgba(255,255,255,.4);border-radius:20px}
 .hero .meta{display:flex;gap:36px;margin-top:22px;flex-wrap:wrap}
 .hero .meta b{display:block;font-size:22px}.hero .meta div{font-size:13px;color:rgba(255,255,255,.9)}
@@ -343,10 +343,10 @@ areaStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rg
 markLine:{symbol:'none',label:{formatter:'{b}'},data:[{xAxis:15000000,name:'1500万 · fc=0.90',lineStyle:{color:GRAY,type:'dashed'},label:{position:'end',offset:[0,14]}},{yAxis:0.9,name:'fc=0.9',lineStyle:{color:'#d97706',type:'dashed'},label:{position:'end',offset:[-20,0]}},{yAxis:0.5,name:'3920万 · fc=0.5',lineStyle:{color:'#16a34a',type:'dashed'},label:{position:'end',offset:[-40,0]}}]}}]})})();
 
 (function(){var top=DATA.slice(0,20).reverse();
-init('cTop').setOption({grid:{left:130,right:70,top:34,bottom:30},
+init('cTop').setOption({grid:{left:160,right:70,top:34,bottom:30},
 legend:{data:['新进贡献','留存贡献','流水贡献'],top:0,textStyle:{fontSize:12}},
 tooltip:{trigger:'axis',axisPointer:{type:'shadow'},formatter:function(p){var d=top[p[0].dataIndex];return '<b>'+d.name+'</b>（第'+d.rank+'名）<br>新进 '+d.an.toFixed(3)+' · 留存 '+d.ar.toFixed(3)+' · 流水 '+d.av.toFixed(3)+'<br>add '+d.add.toFixed(3)+' · fd '+d.fd.toFixed(3)+' · fc '+d.fc.toFixed(3)+' · 得分 '+d.score.toFixed(4)}},
-xAxis:{type:'value',max:1},yAxis:{type:'category',data:top.map(function(d){return d.rank+'. '+d.name}),axisLabel:{fontSize:12}},
+xAxis:{type:'value',max:1},yAxis:{type:'category',data:top.map(function(d){return d.rank+'. '+d.name}),axisLabel:{fontSize:12,align:'left'}},
 series:[
 {name:'新进贡献',type:'bar',stack:'a',data:top.map(function(d){return d.an}),barMaxWidth:16,itemStyle:{color:RED},label:{show:true,position:'inside',color:'#fff',fontSize:9,formatter:function(p){var d=top[p.dataIndex];return Math.round(p.value/d.add*100)+'%'}}},
 {name:'留存贡献',type:'bar',stack:'a',data:top.map(function(d){return d.ar}),itemStyle:{color:'#29b6f6'},label:{show:true,position:'inside',color:'#fff',fontSize:9,formatter:function(p){var d=top[p.dataIndex];return Math.round(p.value/d.add*100)+'%'}}},
