@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>玩法榜单排名方案与效果汇报</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<script>window.echarts||document.write('<script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.5.0/echarts.min.js"><\/script>')</script>
+<style>
+:root{--navy:#1f3864;--blue:#2e75b6;--red:#c00000;--ink:#1a2233;--muted:#6b7280;--line:#e5e7eb;--bg:#f5f7fb}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"微软雅黑","PingFang SC",sans-serif;background:var(--bg);color:var(--ink);line-height:1.7}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px 70px}
+.hero{background:linear-gradient(135deg,#1f3864,#2e75b6,#3b82c4);color:#fff;padding:50px 0 44px}
+.hero h1{font-size:32px;margin-bottom:10px}.hero .sub{font-size:15px;color:rgba(255,255,255,.85);max-width:820px}
+.hero .tag{font-size:12px;letter-spacing:2px;padding:4px 14px;border:1px solid rgba(255,255,255,.4);border-radius:20px}
+.hero .meta{display:flex;gap:36px;margin-top:22px;flex-wrap:wrap}
+.hero .meta b{display:block;font-size:22px}.hero .meta div{font-size:13px;color:rgba(255,255,255,.9)}
+section{margin-top:42px}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:20px}
+.sec-num{font-size:14px;font-weight:700;color:#fff;background:var(--navy);border-radius:8px;padding:3px 11px}
+.sec-title{font-size:22px;font-weight:700;color:var(--navy)}.sec-sub{font-size:13px;color:var(--muted)}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px}
+.formula-box{background:linear-gradient(135deg,#fff,#fdf2f2);border:1px solid #f3c2c2;border-radius:14px;padding:24px;text-align:center;margin-bottom:22px}
+.f-main{font-size:25px;font-weight:700;color:var(--red)}.f-main .op{color:var(--navy)}
+.f-note{font-size:13px;color:var(--muted);margin-top:8px}
+.f-parts{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;justify-content:center}
+.f-chip{background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 14px;font-size:12.5px;text-align:left}
+.f-chip b{color:var(--red)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+@media(max-width:820px){.grid2,.grid3{grid-template-columns:1fr}}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:22px}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;text-align:center}
+.kpi .v{font-size:28px;font-weight:700;color:var(--navy)}.kpi .v.red{color:var(--red)}.kpi .v.blue{color:var(--blue)}.kpi .v.green{color:#16a34a}
+.kpi .l{font-size:12.5px;color:var(--muted);margin-top:4px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}
+th{background:var(--navy);color:#fff;font-size:12.5px;white-space:nowrap}
+tr:nth-child(even) td{background:#fafbfd}
+td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}td.c,th.c{text-align:center}
+.rank-medal{display:inline-block;min-width:22px;height:22px;line-height:22px;text-align:center;border-radius:6px;font-size:12px;font-weight:700;color:#fff}
+.r1{background:#d97706}.r2{background:#9ca3af}.r3{background:#b45309}.rn{background:#e5e7eb;color:#374151}
+.tbl-scroll{max-height:540px;overflow:auto;border:1px solid var(--line);border-radius:12px}
+.tbl-scroll th{position:sticky;top:0;z-index:2}
+.chart{width:100%;height:340px}.chart.tall{height:500px}
+h3{color:var(--navy);font-size:16px;margin-bottom:8px}h4{color:var(--navy);margin-bottom:4px}
+.case{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}@media(max-width:960px){.case{grid-template-columns:1fr}}
+.case-card{border-radius:14px;padding:22px;border:1px solid var(--line);background:#fff}
+.case-card.old{border-left:5px solid var(--red)}.case-card.new{border-left:5px solid #16a34a}
+.case-card h4{font-size:16px}.rank-pill{font-size:12px;color:#fff;background:var(--red);border-radius:12px;padding:2px 10px;display:inline-block;margin:8px 0}
+.case-card.new .rank-pill{background:#16a34a}
+.case-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.cm{background:#f8fafc;border-radius:8px;padding:8px 12px}.cm .k{font-size:12px;color:var(--muted)}.cm .v{font-size:16px;font-weight:700}
+.case-card .desc{font-size:13px;margin-top:12px;background:#fef3f2;border-radius:8px;padding:10px 12px}
+.case-card.new .desc{background:#f0fdf4}
+.concl li{list-style:none;padding-left:26px;margin-bottom:12px;font-size:14px;position:relative}
+.concl li::before{content:"✓";position:absolute;left:0;color:#16a34a;font-weight:700}
+.note{font-size:12.5px;color:var(--muted);margin-top:8px}
+</style></head><body>
+
+<div class="hero"><div class="wrap">
+<span class="tag">GREEN OASIS WORKSHOP · RANKING REPORT</span>
+<h1>玩法榜单排名方案与效果汇报</h1>
+<div class="sub">基于「加分项 × 时间衰减 × 规模衰减」三段式综合评分模型，对新上架玩法给予保护、对超大体量 / 超长运营老玩法适度降权，让榜单反映"当前热度与价值"。</div>
+<div class="meta">
+<div><b>__N__</b>参与排名玩法</div><div><b>2026-11-17</b>榜单统计日期</div>
+<div><b>__MEDDAYS__</b>上架天数中位数</div><div><b>__OVER180__</b>上架超180天玩法</div><div><b>__OVERCUM__</b>触发规模强衰减</div>
+</div></div></div>
+
+<div class="wrap">
+
+<section><div class="sec-head"><span class="sec-num">01</span><span class="sec-title">排名思路</span><span class="sec-sub">一条公式 · 三个因子</span></div>
+<div class="formula-box">
+<div class="f-main">综合分 <span class="op">=</span> 加分项 add <span class="op">×</span> 时间衰减 fd <span class="op">×</span> 规模衰减 fc</div>
+<div class="f-note">三项 0~1 系数相乘；add 衡量"近7日热度与流水"，fd/fc 负责"给老玩法降温"。</div>
+<div class="f-parts">
+<div class="f-chip"><b>加分项 add</b><br>0.35·新进 + 0.25·留存 + 0.40·流水</div>
+<div class="f-chip"><b>时间衰减 fd</b><br>1/(1+a′(天数)·天数)<br>分段 Sigmoid · 180 天分界</div>
+<div class="f-chip"><b>规模衰减 fc</b><br>1/(1+b′(累计)·累计)<br>分段 Sigmoid · 1500 万分界</div>
+</div></div>
+<div class="grid3">
+<div class="card"><h3>① 加分项 add —— 衡量"当前价值"</h3>
+<p style="font-size:13px;color:#374151">三项正向指标先做 <b>log(1+x)</b> 对数压缩，再在当日全部玩法内做 <b>min-max 归一化</b>，最后加权。对数压缩避免大体量数值主导、缓解长尾。</p>
+<div style="margin:12px 0;text-align:center;font-size:13.5px;font-weight:700;color:var(--red)">add = 0.35·norm(ln(1+N_new)) + 0.25·norm(ln(1+N_ret)) + 0.40·norm(ln(1+Rev))</div>
+<table><tr><th>指标</th><th class="r">权重</th><th>含义</th></tr>
+<tr><td>N_new 近7日新进</td><td class="r"><b>0.35</b></td><td>拉新能力</td></tr>
+<tr><td>N_ret 近7日留存</td><td class="r"><b>0.25</b></td><td>活跃基本盘</td></tr>
+<tr><td>Rev 近7日绿洲币消耗</td><td class="r"><b>0.40</b></td><td>商业价值</td></tr></table></div>
+<div class="card"><h3>② 时间衰减 fd —— 新玩法保护</h3>
+<p style="font-size:13px;color:#374151">对"上架天数"惩罚：<b>180 天内</b>系数 a′ 从 0.0003 平滑升至 0.00055（温和）；<b>180 天后</b>加速逼近 0.00437，使 500 天处 fd≈0.5。新玩法 fd≈1。</p>
+<div style="margin:12px 0;text-align:center;font-size:13.5px;font-weight:700;color:var(--red)">fd = 1 / ( 1 + a′(days)·days )</div>
+<div class="note">分界 DAYS_MID=180；过渡宽度 K_LEFT=40 / K_RIGHT=400。</div></div>
+<div class="card"><h3>③ 规模衰减 fc —— 抑制大体量</h3>
+<p style="font-size:13px;color:#374151">对"近1年累计玩家数"惩罚：<b>1500 万内</b>缓慢、<b>1500 万后</b>加速，抑制超大体量老玩法"靠存量霸榜"。</p>
+<div style="margin:12px 0;text-align:center;font-size:13.5px;font-weight:700;color:var(--red)">fc = 1 / ( 1 + b′(cum)·cum )</div>
+<div class="note">分界 CUM_MID=1500万；过渡宽度 330万 / 3300万。</div></div>
+</div></section>
+
+<section><div class="sec-head"><span class="sec-num">02</span><span class="sec-title">衰减因子曲线</span><span class="sec-sub">分段 Sigmoid 平滑过渡</span></div>
+<div class="grid2">
+<div class="card"><h4>时间衰减 fd 随上架天数变化</h4><div id="cFd" class="chart"></div></div>
+<div class="card"><h4>规模衰减 fc 随累计玩家数变化</h4><div id="cFc" class="chart"></div></div>
+</div></section>
+
+<section><div class="sec-head"><span class="sec-num">03</span><span class="sec-title">数据概览</span><span class="sec-sub">真实榜单 · 2026-11-17</span></div>
+<div class="kpis">
+<div class="kpi"><div class="v">__N__</div><div class="l">参与排名玩法</div></div>
+<div class="kpi"><div class="v blue">__MEDDAYS__</div><div class="l">上架天数中位数</div></div>
+<div class="kpi"><div class="v">__MEDFD__</div><div class="l">时间衰减 fd 中位数</div></div>
+<div class="kpi"><div class="v green">__PCTFC__%</div><div class="l">玩法 fc≈1（未触发规模衰减）</div></div>
+<div class="kpi"><div class="v red">__OVERCUM__</div><div class="l">近1年累计 &gt; 1500万</div></div>
+</div>
+<div class="card"><p style="font-size:13.5px;color:#374151">本次覆盖 <b>__N__ 个玩法</b>，上架天数跨度 1~1538 天，其中 <b>__OVER180__ 个（__PCT180__%）超 180 天</b>，时间衰减 fd 是影响多数老玩法的关键因子；近1年累计超 1500 万的玩法仅 <b>__OVERCUM__ 个</b>，规模衰减 fc 只对极少数"超级大体量"玩法生效。</p></div>
+</section>
+
+<section><div class="sec-head"><span class="sec-num">04</span><span class="sec-title">榜单效果</span><span class="sec-sub">加分项 vs 衰减因子的博弈</span></div>
+<div class="grid2">
+<div class="card"><h4>Top 15 综合分排行</h4><div id="cTop" class="chart tall"></div></div>
+<div class="card"><h4>加分项 → 最终得分（衰减影响）</h4>
+<p class="note" style="margin-bottom:4px">若无衰减应落于对角线（score=add）；点越低于对角线，被 fd/fc 衰减得越厉害。</p>
+<div id="cScatter" class="chart tall"></div></div>
+</div>
+<div class="card" style="margin-top:20px"><h4>榜单前 20 名明细</h4>
+<div class="tbl-scroll"><table>
+<thead><tr><th class="c">排名</th><th>玩法名</th><th class="r">天数</th><th class="r">近7日新进</th><th class="r">近7日留存</th><th class="r">近7日绿洲币</th><th class="r">近1年累计</th><th class="r">加分项</th><th class="r">fd</th><th class="r">fc</th><th class="r">最终得分</th></tr></thead>
+<tbody>__ROWS__</tbody></table></div></div>
+</section>
+
+<section><div class="sec-head"><span class="sec-num">05</span><span class="sec-title">典型案例</span><span class="sec-sub">老玩法被降温 / 新玩法登顶</span></div>
+<div class="case">
+<div class="case-card old"><h4>吃丹修仙 —— 加分项全场最高，却被压到 176 名</h4><span class="rank-pill">最终排名 176</span>
+<div class="case-metrics">
+<div class="cm"><div class="k">加分项 add</div><div class="v">0.987</div></div>
+<div class="cm"><div class="k">上架天数</div><div class="v">441 天</div></div>
+<div class="cm"><div class="k">近1年累计</div><div class="v">5893 万</div></div>
+<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:var(--red)">0.564</div></div>
+<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:var(--red)">0.312</div></div>
+<div class="cm"><div class="k">最终得分</div><div class="v" style="color:var(--red)">0.174</div></div>
+</div>
+<div class="desc">add=0.987 全场第一，但 Days=441、近1年累计 5893 万，同时触发时间与规模双重强衰减（fd×fc≈0.176），综合分被压到 0.174，正是"给超长运营 / 超大体量老玩法降温"的体现。</div></div>
+<div class="case-card old"><h4>单挑王 —— 超长上架时长主导衰减，排到 258 名</h4><span class="rank-pill">最终排名 258</span>
+<div class="case-metrics">
+<div class="cm"><div class="k">加分项 add</div><div class="v">0.750</div></div>
+<div class="cm"><div class="k">上架天数</div><div class="v">783 天</div></div>
+<div class="cm"><div class="k">近1年累计</div><div class="v">4563 万</div></div>
+<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:var(--red)">0.300</div></div>
+<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:var(--red)">0.424</div></div>
+<div class="cm"><div class="k">最终得分</div><div class="v" style="color:var(--red)">0.095</div></div>
+</div>
+<div class="desc">add=0.750 不低，但 Days=783 天（极老玩法）使 fd 仅 0.300；Cum≈4563 万远超 1500 万阈值，fc 仅 0.424。双重强衰减下 fd×fc≈0.127，综合分被压到 0.095，排到第 258 名。</div></div>
+<div class="case-card new"><h4>我的宠物都是妖 —— 新玩法登顶</h4><span class="rank-pill">最终排名 1</span>
+<div class="case-metrics">
+<div class="cm"><div class="k">加分项 add</div><div class="v">0.901</div></div>
+<div class="cm"><div class="k">上架天数</div><div class="v">29 天</div></div>
+<div class="cm"><div class="k">近1年累计</div><div class="v">120 万</div></div>
+<div class="cm"><div class="k">时间衰减 fd</div><div class="v" style="color:#16a34a">0.991</div></div>
+<div class="cm"><div class="k">规模衰减 fc</div><div class="v" style="color:#16a34a">0.993</div></div>
+<div class="cm"><div class="k">最终得分</div><div class="v" style="color:#16a34a">0.887</div></div>
+</div>
+<div class="desc">上架仅 29 天，fd/fc 均≈1，靠新进（32.9 万）+ 流水（488 万）的强劲表现，加分项 0.901 几乎原样转化为得分 0.887 登顶，体现"新玩法保护"。</div></div>
+</div></section>
+
+<section><div class="sec-head"><span class="sec-num">06</span><span class="sec-title">结论</span></div>
+<div class="card concl"><ul>
+<li><b>新玩法获得公平机会：</b>上架短、体量小的玩法 fd/fc≈1，靠近期热度与流水即可上榜（Top 15 中过半上架不足 100 天）。</li>
+<li><b>老玩法被温和降温：</b>__OVER180__ 个玩法上架超 180 天，时间衰减 fd 起主导降温作用，加分项再高也会被显著压低。</li>
+<li><b>超级大体量被强抑制：</b>近1年累计超 1500 万的仅 4 个玩法，规模衰减 fc 精准命中，避免"存量霸榜"。</li>
+<li><b>榜单反映"当前价值"：</b>三因子相乘兼顾"扶持新玩法"与"抑制历史体量"双重导向。</li>
+</ul></div></section>
+
+<div style="text-align:center;margin-top:40px;font-size:12px;color:var(--muted)">数据来源：新榜单数据.xlsx（2026-11-17 真实排名） · 方案：玩法榜单排名计算说明文档 V2</div>
+</div>
+
+<script>
+var DATA=__DATA__;
+function sigmoid(x){return 1/(1+Math.exp(-x))}
+function aPrime(d){if(d<=180){var z=(d-180)/40,lo=sigmoid(-4.5),hi=sigmoid(0);return 0.0003+(0.00055-0.0003)*((sigmoid(z)-lo)/(hi-lo))}var z=(d-180)/400,s=sigmoid(z);return 0.00055+(0.00437-0.00055)*((s-0.5)/0.5)}
+function fdOf(d){return 1/(1+aPrime(d)*d)}
+function bPrime(c){if(c<=15000000){var z=(c-15000000)/3300000,lo=sigmoid(-15000000/3300000),hi=sigmoid(0);return 4e-9+(7.4e-9-4e-9)*((sigmoid(z)-lo)/(hi-lo))}var z=(c-15000000)/33000000,s=sigmoid(z);return 7.4e-9+(5.9e-8-7.4e-9)*((s-0.5)/0.5)}
+function fcOf(c){return 1/(1+bPrime(c)*c)}
+var RED='#c00000',NAVY='#1f3864',BLUE='#2e75b6',GRAY='#9ca3af';
+function w(v){return v==null?'—':(v/10000).toFixed(0)+'万'}
+var cs=[];function init(id){var c=echarts.init(document.getElementById(id));cs.push(c);return c}
+window.addEventListener('resize',function(){cs.forEach(function(c){c.resize()})});
+
+(function(){var xs=[],ys=[];for(var d=0;d<=1600;d+=10){xs.push(d);ys.push(fdOf(d))}
+init('cFd').setOption({grid:{left:50,right:24,top:28,bottom:40},
+tooltip:{trigger:'axis',formatter:function(p){return p[0].axisValue+' 天 → fd='+p[0].value.toFixed(3)}},
+xAxis:{type:'value',name:'上架天数',min:0,max:1600},yAxis:{type:'value',name:'fd',min:0,max:1.05},
+series:[{type:'line',data:xs.map(function(x,i){return[x,ys[i]]}),smooth:true,symbol:'none',lineStyle:{color:RED,width:2.5},
+areaStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(192,0,0,.18)'},{offset:1,color:'rgba(192,0,0,0)'}])},
+markLine:{symbol:'none',label:{formatter:'{b}'},data:[{xAxis:180,name:'180天分界',lineStyle:{color:GRAY,type:'dashed'}},{yAxis:0.9,name:'fd=0.9',lineStyle:{color:'#d97706',type:'dashed'}},{yAxis:0.5,name:'fd=0.5',lineStyle:{color:'#16a34a',type:'dashed'}}]}}]})})();
+
+(function(){var xs=[],ys=[];for(var c=0;c<=60000000;c+=500000){xs.push(c);ys.push(fcOf(c))}
+init('cFc').setOption({grid:{left:62,right:24,top:28,bottom:40},
+tooltip:{trigger:'axis',formatter:function(p){return w(p[0].axisValue)+' → fc='+p[0].value.toFixed(3)}},
+xAxis:{type:'value',name:'近1年累计玩家',min:0,max:60000000,axisLabel:{formatter:w}},yAxis:{type:'value',name:'fc',min:0,max:1.05},
+series:[{type:'line',data:xs.map(function(x,i){return[x,ys[i]]}),smooth:true,symbol:'none',lineStyle:{color:BLUE,width:2.5},
+areaStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(46,117,182,.18)'},{offset:1,color:'rgba(46,117,182,0)'}])},
+markLine:{symbol:'none',label:{formatter:'{b}'},data:[{xAxis:15000000,name:'1500万分界',lineStyle:{color:GRAY,type:'dashed'}},{yAxis:0.9,name:'fc=0.9',lineStyle:{color:'#d97706',type:'dashed'}}]}}]})})();
+
+(function(){var top=DATA.slice(0,15).reverse();
+init('cTop').setOption({grid:{left:130,right:48,top:10,bottom:30},
+tooltip:{trigger:'axis',axisPointer:{type:'shadow'},formatter:function(p){var d=top[p[0].dataIndex];return d.name+'（第'+d.rank+'名）<br>得分 '+d.score.toFixed(4)+'<br>add '+d.add.toFixed(3)+' · fd '+d.fd.toFixed(3)+' · fc '+d.fc.toFixed(3)}},
+xAxis:{type:'value',max:1},yAxis:{type:'category',data:top.map(function(d){return d.name}),axisLabel:{fontSize:12}},
+series:[{type:'bar',data:top.map(function(d){return d.score}),barMaxWidth:16,itemStyle:{borderRadius:[0,6,6,0],color:new echarts.graphic.LinearGradient(0,0,1,0,[{offset:0,color:NAVY},{offset:1,color:BLUE}])},
+label:{show:true,position:'right',formatter:function(p){return p.value.toFixed(3)},fontSize:10}}]})})();
+
+(function(){var pts=DATA.map(function(d){return{name:d.name,rank:d.rank,days:d.days,fd:d.fd,fc:d.fc,value:[d.add,d.score]}});
+init('cScatter').setOption({grid:{left:50,right:40,top:28,bottom:44},
+tooltip:{formatter:function(p){var d=pts[p.dataIndex];return d.name+'（第'+d.rank+'名）<br>add '+d.value[0].toFixed(3)+' → score '+d.value[1].toFixed(3)+'<br>fd '+d.fd.toFixed(3)+' · fc '+d.fc.toFixed(3)+' · days '+d.days}},
+xAxis:{type:'value',name:'加分项 add',min:0,max:1},yAxis:{type:'value',name:'最终得分',min:0,max:1},
+series:[{type:'scatter',data:pts,symbolSize:6,
+itemStyle:{color:function(p){return DATA[p.dataIndex].days>180?'#e5e7eb':'#2e75b6'}},
+markLine:{silent:true,symbol:'none',label:{formatter:'score=add',fontSize:10},data:[{xAxis:0,yAxis:0,x2:1,y2:1,lineStyle:{color:RED,type:'dashed',width:1.5}}]}}]})})();
+</script>
+</body></html>
