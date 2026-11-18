@@ -348,9 +348,9 @@ legend:{data:['新进贡献','留存贡献','流水贡献'],top:0,textStyle:{fon
 tooltip:{trigger:'axis',axisPointer:{type:'shadow'},formatter:function(p){var d=top[p[0].dataIndex];return '<b>'+d.name+'</b>（第'+d.rank+'名）<br>新进 '+d.an.toFixed(3)+' · 留存 '+d.ar.toFixed(3)+' · 流水 '+d.av.toFixed(3)+'<br>add '+d.add.toFixed(3)+' · fd '+d.fd.toFixed(3)+' · fc '+d.fc.toFixed(3)+' · 得分 '+d.score.toFixed(4)}},
 xAxis:{type:'value',max:1},yAxis:{type:'category',data:top.map(function(d){return d.name}),axisLabel:{fontSize:12}},
 series:[
-{name:'新进贡献',type:'bar',stack:'a',data:top.map(function(d){return d.an}),barMaxWidth:16,itemStyle:{color:BLUE},label:{show:true,position:'inside',color:'#fff',fontSize:9,formatter:function(p){var d=top[p.dataIndex];return Math.round(p.value/d.add*100)+'%'}}},
-{name:'留存贡献',type:'bar',stack:'a',data:top.map(function(d){return d.ar}),itemStyle:{color:'#16a34a'},label:{show:true,position:'inside',color:'#fff',fontSize:9,formatter:function(p){var d=top[p.dataIndex];return Math.round(p.value/d.add*100)+'%'}}},
-{name:'流水贡献',type:'bar',stack:'a',data:top.map(function(d){return d.av}),itemStyle:{color:'#d97706'},label:{show:true,position:'inside',color:'#fff',fontSize:9,formatter:function(p){var d=top[p.dataIndex];return Math.round(p.value/d.add*100)+'%'}}}
+{name:'新进贡献',type:'bar',stack:'a',data:top.map(function(d){return d.an}),barMaxWidth:16,itemStyle:{color:RED},label:{show:true,position:'inside',color:'#fff',fontSize:9,formatter:function(p){var d=top[p.dataIndex];return Math.round(p.value/d.add*100)+'%'}}},
+{name:'留存贡献',type:'bar',stack:'a',data:top.map(function(d){return d.ar}),itemStyle:{color:BLUE},label:{show:true,position:'inside',color:'#fff',fontSize:9,formatter:function(p){var d=top[p.dataIndex];return Math.round(p.value/d.add*100)+'%'}}},
+{name:'流水贡献',type:'bar',stack:'a',data:top.map(function(d){return d.av}),itemStyle:{color:'#7c3aed'},label:{show:true,position:'inside',color:'#fff',fontSize:9,formatter:function(p){var d=top[p.dataIndex];return Math.round(p.value/d.add*100)+'%'}}}
 ]})})();
 
 var tblState={k:'rank',dir:1,q:''};
